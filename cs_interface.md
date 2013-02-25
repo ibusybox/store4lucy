@@ -26,14 +26,21 @@ Count=50
 #product data struct
 ##number
 IP1-CS-001
+
 ##model
 iPhone5
 
 ##name
 iPhone5 metal case
 
+##color
+red, white, black
+
 ##description
 iPhone5 metal case best selling.
+
+##material
+PC
 
 ##image
 ![image](sample.jpg)

@@ -78,7 +78,7 @@ function queryProductByCount(count, callback){
     product.productModel = 'iPhone5';
     product.productName = 'iPhone5 metal case';
     product.productDescription = 'iPhone5 metal case best selling.';
-    product.productImage = [];
+    product.productImage = ["sample.jpg"];
     product.suppliers[0] = new supplierPrice();
     product.suppliers[0].supplierName='Chuangjida';
     product.suppliers[0].price = '6 RMB';

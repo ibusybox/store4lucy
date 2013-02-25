@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="productContainer">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <!--div class="hero-unit">
@@ -73,10 +73,6 @@
       </div-->
 
       <!-- Example row of columns -->
-      <div class="row-fluid">
-        <p>没有产品</p>
-      </div>
-      <hr>
 
       <footer>
         <p>&copy; Company 2012</p>
@@ -100,6 +96,12 @@
     <script src="../bootstrap/js/bootstrap-collapse.js"></script>
     <script src="../bootstrap/js/bootstrap-carousel.js"></script>
     <script src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <script src="./script/client.js"></script>
 
+    <script>
+      $(window).load(function(){
+        queryProductByCount();
+      });
+    </script>
   </body>
 </html>

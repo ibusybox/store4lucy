@@ -58,12 +58,9 @@ function queryProduct(request, response){
     //TODO, 50 should pass from client
     productMgr.queryProductByCount(50, function(statusCode, products){
         if ( statusCode === 0 ){
-            var i = 0;
-            var product_json = JSON.stringify(products[i]);
+            var product_json = JSON.stringify(products);
             console.log("send product json: " + product_json);
-            for (; i < products.length; i++){
-                response.write(product_json);
-            }
+            response.write(product_json);
         }else{
             response.write("query product failed, error = " + statusCode);
         }
