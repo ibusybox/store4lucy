@@ -2,7 +2,11 @@
 var fs = require('fs');
 var url = require('url');
 var path = require('path');
+
 var mime = require('./mime');
+var ProductMgr = require('./productmgr');
+var productMgr = new ProductMgr.productMgr();
+
 
 //functions
 function getMIMEType(mime, path, realpath){
@@ -19,7 +23,7 @@ function getMIMEType(mime, path, realpath){
 
 //request handles start
 
-//the default handle, represent as a static web server
+/**the default handle, represent as a static web server*/
 function defaultHandle(request, response){
         var pathname = url.parse(request.url).pathname;
         //remove the first slash /
@@ -44,9 +48,26 @@ function defaultHandle(request, response){
             }
 }
 
+/*
+The interface between client and server, used to query product info.
+See the interface document for the detail of this interface.
+*/
 function queryProduct(request, response){
-    response.writeHead(200, {'Content-Type' : 'text/plain'});
-    response.write("This is empty queryproduct result.");
+    response.writeHead(200, {'Content-Type' : 'text/json'});
+
+    //TODO, 50 should pass from client
+    productMgr.queryProductByCount(50, function(statusCode, products){
+        if ( statusCode === 0 ){
+            var i = 0;
+            var product_json = JSON.stringify(products[i]);
+            console.log("send product json: " + product_json);
+            for (; i < products.length; i++){
+                response.write(product_json);
+            }
+        }else{
+            response.write("query product failed, error = " + statusCode);
+        }
+    });
     response.end();
     console.log("process queryProduct");
 }
