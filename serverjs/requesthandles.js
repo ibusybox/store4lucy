@@ -28,7 +28,6 @@ function defaultHandle(request, response){
         var pathname = url.parse(request.url).pathname;
         //remove the first slash /
         var realpath = pathname.slice(1, pathname.length);
-        console.log("request path = " + realpath);
         var exists = fs.existsSync(realpath);
             if (!exists){
                 response.writeHead(404, {'Content-Type' : 'text/plain'});
@@ -56,7 +55,7 @@ function queryProduct(request, response){
     response.writeHead(200, {'Content-Type' : 'text/json'});
 
     //TODO, 50 should pass from client
-    productMgr.queryProductByCount(50, function(statusCode, products){
+    productMgr.queryProductSummaryByCount(50, function(statusCode, products){
         if ( statusCode === 0 ){
             var product_json = JSON.stringify(products);
             console.log("send product json: " + product_json);

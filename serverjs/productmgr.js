@@ -2,6 +2,8 @@
 //this file is used by client and server shared.
 
 /**Global variables start**/
+var markdown = require('./markdown');
+
 //the product file location, relative to the web server root path.
 var PRODUCT_REPO_PATH = 'products/';
 /**Gloabel variables end**/
@@ -51,6 +53,13 @@ function createProduct(){
     this.suppliers = [];
 }
 
+/**create product summary object**/
+function createProductSummary(){
+    this.productNumber = '';
+    this.productSummaryMD = '';
+    this.productSummaryHTML = '';
+}
+
 /*create a product object from markdown file*/
 function productFromFile(filename){
 
@@ -66,34 +75,34 @@ function productFromJSON(JSONString){
 @param [count = int], how many products query, should be greater then 0.
 @param [callback = function( statusCode, product[] )]
 **/
-function queryProductByCount(count, callback){
+function queryProductSummaryByCount(count, callback){
     if ( count <= 0 ){
         callback(ERROR_NO_PRODUCT, []);
         return ERROR_NO_PRODUCT;
     }
 
     //TODO, should read from file
-    var product = new createProduct();
-    product.productNumber = 'IP1-CS-001';
-    product.productModel = 'iPhone5';
-    product.productName = 'iPhone5 metal case';
-    product.productDescription = 'iPhone5 metal case best selling.';
-    product.productImage = ["sample.jpg"];
-    product.suppliers[0] = new supplierPrice();
-    product.suppliers[0].supplierName='Chuangjida';
-    product.suppliers[0].price = '6 RMB';
+    var productSummary = new createProductSummary();
+    productSummary.productNumber = 'IP5-001';
+    productSummary.productSummaryMD = '#test md';
+    markdown.convertMD2HTML(productSummary.productSummaryMD, function(err, data){
+        if ( err ){
+            productSummary.productSummaryHTML = "<h3>markdown process error</h3>";
+        }else{
+            productSummary.productSummaryHTML = data;
+        }
+        //for reduct the data size, set the md to empty
+        productSummary.productSummaryMD = '';
+        callback(0, productSummary);
+    });
 
-    var products = [];
-    products[0] = product;
-
-    callback(0, products);
 }
 
 /**
 product manager facade
 **/
 function productMgr(){
-    this.queryProductByCount = queryProductByCount;
+    this.queryProductSummaryByCount = queryProductSummaryByCount;
 }
 
 exports.productMgr = productMgr;
