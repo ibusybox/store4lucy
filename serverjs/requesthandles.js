@@ -63,9 +63,10 @@ function queryProduct(request, response){
         }else{
             response.write("query product failed, error = " + statusCode);
         }
+        response.end();
+        console.log("process queryProduct");
     });
-    response.end();
-    console.log("process queryProduct");
+
 }
 
 //request handles end

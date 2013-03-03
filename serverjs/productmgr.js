@@ -83,18 +83,14 @@ function queryProductSummaryByCount(count, callback){
 
     //TODO, should read from file
     var productSummary = new createProductSummary();
-    productSummary.productNumber = 'IP5-001';
-    productSummary.productSummaryMD = '#test md';
-    markdown.convertMD2HTML(productSummary.productSummaryMD, function(err, data){
-        if ( err ){
-            productSummary.productSummaryHTML = "<h3>markdown process error</h3>";
-        }else{
-            productSummary.productSummaryHTML = data;
-        }
-        //for reduct the data size, set the md to empty
-        productSummary.productSummaryMD = '';
-        callback(0, productSummary);
-    });
+    productSummary.productNumber = "IP5-001";
+    productSummary.productSummaryMD = "#test md";
+    var html = markdown.convertMD2HTML(productSummary.productSummaryMD);
+    console.log("get html from markdown value = " + html);
+    productSummary.productSummaryHTML = html;
+    //for reduct the data size, set the md to empty
+    productSummary.productSummaryMD = '';
+    callback(0, productSummary);
 
 }
 
