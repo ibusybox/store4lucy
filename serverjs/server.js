@@ -8,7 +8,7 @@ var requestHandles = require('./requesthandles');
 //handles
 var handles = {};
 handles['defaultHandle'] = requestHandles.defaultHandle;
-handles['/queryproduct'] = requestHandles.queryProduct;
+handles['/getProductSummary'] = requestHandles.queryProductSummary;
 
 var server = http.createServer(
     function(request, response){

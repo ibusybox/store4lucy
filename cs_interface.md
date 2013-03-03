@@ -24,34 +24,40 @@ Count=50
 
 
 #product data struct
-##number
-IP1-CS-001
+###number
+1
 
-##model
-iPhone5
+###name
+Metal case for iPhone4, iPhone5
 
-##name
-iPhone5 metal case
-
-##color
-red, white, black
-
-##description
-iPhone5 metal case best selling.
-
-##material
-PC
-
-##image
+###Thumbnail
 ![image](sample.jpg)
 
-##suppliers
-###supplier name
+********
+###model
+iPhone5,iPhone4
+
+
+###color
+red, white, black
+
+###description
+iPhone5 metal case best selling.
+
+###material
+PC
+
+###image
+![image](sample.jpg)
+
+###suppliers
+********
+####supplier name
 Chuangjida
 ####price
 6 RMB
-
-###supplier name
+********
+####supplier name
 Niumowang
 ####price
 7 RMB

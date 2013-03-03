@@ -28,7 +28,12 @@ function defaultHandle(request, response){
         var pathname = url.parse(request.url).pathname;
         //remove the first slash /
         var realpath = pathname.slice(1, pathname.length);
+        console.log("realpath = " + realpath);
         var exists = fs.existsSync(realpath);
+        if (!exists){
+            realpath = realpath + "/index.html";
+            exists = fs.existsSync(realpath);
+        }
             if (!exists){
                 response.writeHead(404, {'Content-Type' : 'text/plain'});
                 response.write("Forbidden Access");
@@ -51,17 +56,17 @@ function defaultHandle(request, response){
 The interface between client and server, used to query product info.
 See the interface document for the detail of this interface.
 */
-function queryProduct(request, response){
+function queryProductSummary(request, response){
     response.writeHead(200, {'Content-Type' : 'text/json'});
 
     //TODO, 50 should pass from client
-    productMgr.queryProductSummaryByCount(50, function(statusCode, products){
-        if ( statusCode === 0 ){
+    productMgr.queryProductSummaryByCount(50, function(err, products){
+        if ( ! err ){
             var product_json = JSON.stringify(products);
             console.log("send product json: " + product_json);
             response.write(product_json);
         }else{
-            response.write("query product failed, error = " + statusCode);
+            response.write("query product failed, error = " + err);
         }
         response.end();
         console.log("process queryProduct");
@@ -69,8 +74,13 @@ function queryProduct(request, response){
 
 }
 
+function queryProductDetailByID(request, response){
+    var id = url.parse(request.url).query.id;
+    
+}
+
 //request handles end
 
 exports.defaultHandle = defaultHandle;
-exports.queryProduct = queryProduct;
+exports.queryProductSummary = queryProductSummary;
 
