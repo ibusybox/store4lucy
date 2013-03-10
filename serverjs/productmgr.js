@@ -24,27 +24,9 @@ var ERROR_NO_PRODUCT = 100;
 function getAllProductFilePath(rootpath){
 
 }
-/**Private function end**/
 
 
-
-/**
-@method Query product info by count. Called by the request handle.
-@param [count = int], how many products query, should be greater then 0.
-@param [callback = function( statusCode, product[] )]
-**/
-function queryProductSummaryByCount(count, current, callback){
-    if ( count <= 0 ){
-        callback("error count number, count = " + count, []);
-        return;
-    }
-
-    //read count files
-    readProductByID(count, current, callback);
-
-}
-
-function readProductByID(count, current, callback){
+function readProductSummaryByID(count, current, callback){
     var index = 0;
     var product;
 
@@ -60,8 +42,8 @@ function readProductByID(count, current, callback){
         console.log("end read products.");
     });
     walker.on("file", function (root, fileStats, next){
-        if ( utils.stringEndWith(fileStats.name, ".md") ){
-            if ( fileStats.name == current + ".md" ){
+        if ( utils.stringEndWith(fileStats.name, ".json") ){
+            if ( fileStats.name == current + ".json" ){
                 console.log("process file = " + fileStats.name);
                 productFileMgr.readMDFile2ProductSummary( root + "/" + fileStats.name, callback );
             }
@@ -74,12 +56,66 @@ function readProductByID(count, current, callback){
 
 }
 
+function readProductByID(id, callback){
+    var walker = walk.walk(PRODUCT_REPO_PATH, {followLinks : false});
+
+    walker.on("directories", function (root, dirStatsArray, next){
+        next();
+    });
+    walker.on("errors", function (root, nodeStatsArray, next){
+        next();
+    });
+    walker.on("end", function (){
+        console.log("end read products.");
+    });
+    walker.on("file", function (root, fileStats, next){
+        if ( utils.stringEndWith(fileStats.name, ".json") ){
+            if ( fileStats.name == id + ".json" ){
+                //call productFileMgr
+                productFileMgr.readMDFile2Product( root + "/" + fileStats.name, callback );
+            }
+        }else{
+            next();
+        }
+    });
+}
+
+/**Private function end**/
+
+
+
+/**
+@method Query product info by count. Called by the request handle.
+@param [count = int], how many products query, should be greater then 0.
+@param [callback = function( statusCode, product[] )]
+**/
+function queryProductSummaryByCount(count, current, callback){
+    if ( count <= 0 ){
+        callback("error count number, count = " + count, []);
+    }else{
+        //read count files
+        readProductSummaryByID(count, current, callback);
+
+    }
+
+}
+
+/***
+* @method Query product by ID. Called by the request handle.
+* @param [id = int], the id of the product.
+* @param [callback = function(err, data)]
+**/
+function queryProductByID(id, callback){
+    readProductByID(id, callback);
+}
+
 
 /**
 product manager facade
 **/
 function productMgr(){
     this.queryProductSummaryByCount = queryProductSummaryByCount;
+    this.queryProductByID = queryProductByID;
 }
 
 exports.productMgr = productMgr;

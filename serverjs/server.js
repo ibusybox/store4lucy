@@ -9,6 +9,7 @@ var requestHandles = require('./requesthandles');
 var handles = {};
 handles['defaultHandle'] = requestHandles.defaultHandle;
 handles['/getProductSummary'] = requestHandles.queryProductSummary;
+handles['/product/q'] = requestHandles.queryProductByID;
 
 var server = http.createServer(
     function(request, response){

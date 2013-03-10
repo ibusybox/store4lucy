@@ -6,3 +6,5 @@ used to convert markdown to html
 ##walk
 walk directories and collect files. [https://github.com/coolaj86/node-walk](https://github.com/coolaj86/node-walk)
 
+##colorbox
+used to popup dialog [http://www.jacklmoore.com/colorbox](http://www.jacklmoore.com/colorbox)

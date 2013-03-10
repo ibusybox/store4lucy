@@ -1,0 +1,16 @@
+{
+    "number" : 3,
+    "name" : "Metal case for iPhone4, iPhone5",
+    "model" : "iPhone5,iPhone4",
+    "color" : "red,white,black",
+    "description" : "iPhone5 metal case best selling.",
+    "material" : "PC",
+    "image" : "sample.jpg",
+    "suppliers" : [
+        {"supplier name" :  "Chuangjida",
+       "price" : "6 RMB"},
+       {"supplier name" :  "Niumowang",
+       "price" : "7 RMB"}
+    ]
+    
+}

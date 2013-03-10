@@ -4,6 +4,7 @@ var url = require('url');
 var path = require('path');
 
 var mime = require('./mime');
+var utils = require('./utils');
 var ProductMgr = require('./productmgr');
 var productMgr = new ProductMgr.productMgr();
 
@@ -85,12 +86,12 @@ function queryProductSummary(request, response){
 
         response.writeHead(200, {'Content-Type' : 'text/json'});
 
-        //TODO, 50 should pass from client
+        
         productMgr.queryProductSummaryByCount(param.maxcount, param.current, function(err, products){
             if ( ! err ){
-                var product_json = JSON.stringify(products);
-                console.log("send product json: " + product_json);
-                response.write(product_json);
+                //var product_json = JSON.stringify(products);
+                console.log("send product json: " + products);
+                response.write(products);
             }else{
                 response.write("query product failed, error = " + err);
             }
@@ -103,13 +104,36 @@ function queryProductSummary(request, response){
 
 }
 
-function queryProductDetailByID(request, response){
-    var id = url.parse(request.url).query.id;
-    
+/**
+* Query product by ID.
+* The URL pattern is like: ?id=1
+**/
+function queryProductByID(request, response){
+    //read the data from client
+    var clientData = '';
+    request.setEncoding("utf8");
+    request.on("data", function(chuck){
+        clientData = clientData + chuck;
+    });
+    request.on("end", function(){
+        var param = JSON.parse(clientData);
+
+        response.writeHead(200, {'Content-Type' : 'text/json'});
+
+        productMgr.queryProductByID(param.id, function(err, data){
+            if ( err ){
+                response.write("query product detail failed, error = " + err);
+            }else{
+                response.write(data);
+            }
+            response.end();
+        });
+    });
 }
 
 //request handles end
 
 exports.defaultHandle = defaultHandle;
 exports.queryProductSummary = queryProductSummary;
+exports.queryProductByID = queryProductByID;
 
