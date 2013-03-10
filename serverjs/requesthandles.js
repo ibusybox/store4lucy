@@ -19,6 +19,13 @@ function getMIMEType(mime, path, realpath){
 
     return contentType;
 }
+
+function forbiddenAccess(response){
+    response.writeHead(404, {'Content-Type' : 'text/plain'});
+    response.write("Forbidden Access");
+    response.end();
+
+}
 //functions end
 
 //request handles start
@@ -30,15 +37,19 @@ function defaultHandle(request, response){
         var realpath = pathname.slice(1, pathname.length);
         console.log("realpath = " + realpath);
         var exists = fs.existsSync(realpath);
-        if (!exists){
-            realpath = realpath + "/index.html";
-            exists = fs.existsSync(realpath);
-        }
+
+        //if path not exist, forbidden access
             if (!exists){
-                response.writeHead(404, {'Content-Type' : 'text/plain'});
-                response.write("Forbidden Access");
-                response.end();
-            }else{
+                forbiddenAccess(response);
+            }else {
+                //if path is not file, forbidden access
+                var stat = fs.statSync(realpath);
+                if ( !stat.isFile() ){
+                    forbiddenAccess(response);
+                }
+                else {
+
+                console.log("read file : " + realpath);
                 fs.readFile(realpath, "binary", function(err, file){
                     if (err){
                         response.writeHead(505, {'Content-Type' : 'text/plain'});
@@ -49,6 +60,9 @@ function defaultHandle(request, response){
                         response.end();
                     }
                 });
+
+                }
+
             }
 }
 
@@ -57,20 +71,35 @@ The interface between client and server, used to query product info.
 See the interface document for the detail of this interface.
 */
 function queryProductSummary(request, response){
-    response.writeHead(200, {'Content-Type' : 'text/json'});
-
-    //TODO, 50 should pass from client
-    productMgr.queryProductSummaryByCount(50, function(err, products){
-        if ( ! err ){
-            var product_json = JSON.stringify(products);
-            console.log("send product json: " + product_json);
-            response.write(product_json);
-        }else{
-            response.write("query product failed, error = " + err);
-        }
-        response.end();
-        console.log("process queryProduct");
+    //read the data from client
+    var clientData = '';
+    request.setEncoding("utf8");
+    request.on("data", function(chuck){
+        clientData = clientData + chuck;
     });
+
+    request.on("end", function(){
+        console.log("data " + clientData);
+        var param = JSON.parse(clientData);
+        console.log("data json parsed: " + param);
+
+        response.writeHead(200, {'Content-Type' : 'text/json'});
+
+        //TODO, 50 should pass from client
+        productMgr.queryProductSummaryByCount(param.maxcount, param.current, function(err, products){
+            if ( ! err ){
+                var product_json = JSON.stringify(products);
+                console.log("send product json: " + product_json);
+                response.write(product_json);
+            }else{
+                response.write("query product failed, error = " + err);
+            }
+            response.end();
+            console.log("process queryProduct");
+        });
+
+    });
+
 
 }
 
