@@ -29,6 +29,7 @@ function getAllProductFilePath(rootpath){
 function readProductSummaryByID(count, current, callback){
     var index = 0;
     var product;
+    var found = false;
 
     var walker = walk.walk(PRODUCT_REPO_PATH, {followLinks : false});
 
@@ -39,6 +40,9 @@ function readProductSummaryByID(count, current, callback){
         next();
     });
     walker.on("end", function (){
+        if ( ! found ){
+            callback("Product Not Found.", null);
+        }
         console.log("end read products.");
     });
     walker.on("file", function (root, fileStats, next){
@@ -46,9 +50,10 @@ function readProductSummaryByID(count, current, callback){
             if ( fileStats.name == current + ".json" ){
                 console.log("process file = " + fileStats.name);
                 productFileMgr.readMDFile2ProductSummary( root + "/" + fileStats.name, callback );
+                found = true;
             }
         }
-        if (index <= count){
+        if (index <= count && ! found){
             next();
         }
         index ++;

@@ -1,0 +1,43 @@
+<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+<div id="feature">
+  <h4>feature</h4><br/>
+  <span class="well"><strong>number:</strong><%=feature.number%></span>
+  <span class="well"><strong>name:</strong><%=feature.name%></span>
+  <span class="well"><strong>model:</strong><%=feature.model%></span>
+  <span class="well"><strong>color:</strong><%=feature.color%></span>
+  <span class="well"><strong>description:</strong><%=feature.description%></span>
+  <span class="well"><strong>material:</strong><%=feature.material%></span>
+</div>
+<hr/>
+<div id="images">
+  <h4>images</h4>
+  <%
+    var home = "/home/products/";
+    for ( var i = 0; i < images.length; i++){ %>
+      <image class="img-polaroid" width="50%" src="<%=home + images[i].imagesrc%>"/>
+  <%  }
+  %>
+  
+</div>
+<hr/>
+<div id="suppliers">
+  <h4>suppliers</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>supplier name</th>
+        <th>price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%
+        for ( var i = 0; i < suppliers.length; i++){%>
+          <tr>
+            <td><%=suppliers[i].suppliername%></td>
+            <td><%=suppliers[i].price%></td>
+          </tr>
+      <%  }
+      %>
+    </tbody>
+  </table>
+</div>

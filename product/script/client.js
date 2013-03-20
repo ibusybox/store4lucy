@@ -7,7 +7,7 @@ var SEARCH_PRODUCT_URL = '/product/q';
 var PRODUCT_HOME = "/home/products/";
 
 /**Product manager start**/
-var QUERY_PRODUCT_BATCH_COUNT = 5;
+var QUERY_PRODUCT_BATCH_COUNT = 20;
 
 /**
 * @method Query product by count, called by the index.html page, when loading page.
@@ -23,7 +23,7 @@ function queryProductByCount(){
             var html = '';
             if ( textStatus == "success" ){
                 //data is one createProductSummary object
-                html = spanProduct( data.number, convertJSON2ProductSummary(data) );
+                html = spanProduct( data.feature.number, convertJSON2ProductSummary(data) );
                 
                 //each row 4 columns
                 if (count % 4 === 0){
@@ -49,20 +49,25 @@ function queryProductByCount(){
 function queryProductByID(id){
     $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : id}), function(data, textStatus){ 
         if ( textStatus == "success" ){
-            $.colorbox({html:data});
+            $("#" + id).colorbox({opacity : 0, html : formatProductHtml(data)}); 
         }else{
-            $.colorbox({html:"<h3>Get product detail error.</h3>"}); 
+            $.colorbox({opacity : 1, html : "<h3>Get product detail error.</h3>"}); 
         }
                      
-    }, 'html');
+    }, 'json');
 
 
+}
+
+function formatProductHtml(data){
+    var html = new EJS({url : "/product/product.ejs"}).render(data);
+    return html;
 }
 
 function spanProduct(id, html){
     //add the detail button first
     var retHtml = "<div class=\"span3\">" + html;
-    retHtml = retHtml + "<input type=\"button\" id = \"" + id + "\"" + "class=\"btn btn-success\" value=\"View Detail\" onclick=\"queryProductByID(this.id)\"/>";
+    retHtml = retHtml + "<input type=\"button\" id = \"" + id + "\"" + "class=\"btn btn-link\" value=\"More\" onclick=\"queryProductByID(this.id)\"/>";
 
     var span = retHtml + "</div>";
     return span;
@@ -72,8 +77,8 @@ function convertJSON2ProductSummary(product){
     var html = '';
 
     //use the first image data as thumbnail image
-    html = html + "<image src=\"" + PRODUCT_HOME + product.image.split(",")[0] + "\"/>";
-    html = html + "<p>" + product.description + "</p>";
+    html = html + "<image src=\"" + PRODUCT_HOME + product.images[0].imagesrc + "\"/>";
+    html = html + "<p>" + product.feature.description + "</p>";
     return html;
 }
 

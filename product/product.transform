@@ -1,0 +1,26 @@
+[
+  {"tag":"link","href":"../bootstrap/css/bootstrap.css","rel":"stylesheet","html":""},
+  {"tag":"div","id":"${number}","children":[
+      {"tag":"span","class":"well","html":"number: ${number}"},
+      {"tag":"span","class":"well","html":"name: ${name}"},
+      {"tag":"span","class":"well","html":"model: ${model}"},
+      {"tag":"span","class":"well","html":"color: ${color}"},
+      {"tag":"span","class":"well","html":"description: ${description}"},
+      {"tag":"span","class":"well","html":"material: ${material}"}
+    ]},
+  {"tag":"hr","html":""},
+  {"tag":"div","id":"${images}","html":function(){
+    var path = "/home/products/";
+    var len = this.images.length;
+    var oneImage, i, imageHtml;
+    imageHtml = "<h4>images</h4>";
+    for ( i = 0; i < len; i++){
+      oneImage = path + this.images[i].imagesrc;
+      imageHtml = imageHtml + "<image src=\"oneImage\"/>";
+    }
+    return imageHtml;
+  }},
+  {"tag":"hr","html":""},
+  {"tag":"div","id":"${suppliers}","html":"
+"}
+]
