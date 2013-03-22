@@ -49,7 +49,7 @@ function queryProductByCount(){
 function queryProductByID(id){
     $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : id}), function(data, textStatus){ 
         if ( textStatus == "success" ){
-            $("#" + id).colorbox({opacity : 0, html : formatProductHtml(data)}); 
+            $("#" + id).colorbox({opacity : 0, open : true, html : formatProductHtml(data)}); 
         }else{
             $.colorbox({opacity : 1, html : "<h3>Get product detail error.</h3>"}); 
         }

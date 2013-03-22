@@ -1,23 +1,30 @@
 <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-<div id="feature">
-  <h4>feature</h4><br/>
-  <span class="well"><strong>number:</strong><%=feature.number%></span>
-  <span class="well"><strong>name:</strong><%=feature.name%></span>
-  <span class="well"><strong>model:</strong><%=feature.model%></span>
-  <span class="well"><strong>color:</strong><%=feature.color%></span>
-  <span class="well"><strong>description:</strong><%=feature.description%></span>
-  <span class="well"><strong>material:</strong><%=feature.material%></span>
-</div>
-<hr/>
+<div class="hero-unit">
 <div id="images">
-  <h4>images</h4>
   <%
     var home = "/home/products/";
     for ( var i = 0; i < images.length; i++){ %>
-      <image class="img-polaroid" width="50%" src="<%=home + images[i].imagesrc%>"/>
+      <image class="img-polaroid" width="100%" src="<%=home + images[i].imagesrc%>"/>
   <%  }
   %>
   
+</div>
+
+<div id="feature">
+  <dl class="dl-horizontal">
+    <dt>number</dt>
+    <dd><%=feature.number%></dd>
+    <dt>name</dt>
+    <dd><%=feature.name%></dd>
+    <dt>model</dt>
+    <dd><%=feature.model%></dd>
+    <dt>color</dt>
+    <dd><%=feature.color%></dd>
+    <dt>description</dt>
+    <dd><%=feature.description%></dd>
+    <dt>material</dt>
+    <dd><%=feature.material%></dd>
+  </dl>
 </div>
 <hr/>
 <div id="suppliers">
@@ -40,4 +47,5 @@
       %>
     </tbody>
   </table>
+</div>
 </div>
