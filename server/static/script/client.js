@@ -2,9 +2,7 @@
 
 var QUERY_PRODUCT_SUMMARY_URL = '/getProductSummary';
 
-var SEARCH_PRODUCT_URL = '/product/q';
-
-var PRODUCT_HOME = "/home/products/";
+var SEARCH_PRODUCT_URL = '/q';
 
 /**Product manager start**/
 var QUERY_PRODUCT_BATCH_COUNT = 20;
@@ -60,7 +58,7 @@ function queryProductByID(id){
 }
 
 function formatProductHtml(data){
-    var html = new EJS({url : "/product/product.ejs"}).render(data);
+    var html = new EJS({url : "product.ejs"}).render(data);
     return html;
 }
 
@@ -77,7 +75,7 @@ function convertJSON2ProductSummary(product){
     var html = '';
 
     //use the first image data as thumbnail image
-    html = html + "<image src=\"" + PRODUCT_HOME + product.images[0].imagesrc + "\"/>";
+    html = html + "<image src=\"" + product.images[0].imagesrc + "\"/>";
     html = html + "<p>" + product.feature.description + "</p>";
     return html;
 }

@@ -1,10 +1,9 @@
-<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <div class="hero-unit">
 <div id="images">
   <%
-    var home = "/home/products/";
     for ( var i = 0; i < images.length; i++){ %>
-      <image class="img-polaroid" width="100%" src="<%=home + images[i].imagesrc%>"/>
+      <image class="img-polaroid" width="100%" src="<%=images[i].imagesrc%>"/>
   <%  }
   %>
   

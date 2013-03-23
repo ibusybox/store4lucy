@@ -3,7 +3,7 @@
 
 /**Global variables start**/
 
-var walk = require('./walk');
+var walk = require('walk');
 
 var productFileMgr = require('./productfilemgr');
 
