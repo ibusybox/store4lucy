@@ -1,0 +1,15 @@
+{
+    "Lucy" :    {
+            "username" : "Lucy",
+            "email" : "lucy@gmail.com",
+            "password" : "c48b1b8b61391761e92a954a8972c4b427fe89e9",
+            "role" : "admin"
+        },
+    "Fendo" :   {
+            "username" : "Fendo",
+            "email" : "fendo@gmail.com",
+            "password" : "2d26dfe621a2927c7c4b55fb70c7e2e8a5d33ffc",
+            "role" : "admin"
+        }
+
+}

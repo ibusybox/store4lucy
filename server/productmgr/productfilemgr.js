@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-var utils = require('./utils');
+var utils = require('../utils');
 
 
 /**Private method start**/
@@ -32,7 +32,8 @@ function readMDFile2ProductSummary(filepath, callback){
         if ( err ){
             callback( err, null );
         }else{
-            callback( null, data );
+            console.log("productfilemgr, rereadMDFile2ProductSummary data = " + data);
+            callback( null, JSON.parse(data) );
         }
     });
 }

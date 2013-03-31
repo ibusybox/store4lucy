@@ -58,7 +58,7 @@ function queryProductByID(id){
 }
 
 function formatProductHtml(data){
-    var html = new EJS({url : "product.ejs"}).render(data);
+    var html = new EJS({url : "/product/product.ejs"}).render(data);
     return html;
 }
 

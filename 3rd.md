@@ -8,3 +8,9 @@ walk directories and collect files. [https://github.com/coolaj86/node-walk](http
 
 ##colorbox
 used to popup dialog [http://www.jacklmoore.com/colorbox](http://www.jacklmoore.com/colorbox)
+
+##express
+the nodejs web framework
+
+##passport
+use authorication

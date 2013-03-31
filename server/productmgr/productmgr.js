@@ -7,7 +7,7 @@ var walk = require('walk');
 
 var productFileMgr = require('./productfilemgr');
 
-var utils = require('./utils');
+var utils = require('../utils');
 
 //the product file location, relative to the web server root path.
 var PRODUCT_REPO_PATH = 'home/products/';

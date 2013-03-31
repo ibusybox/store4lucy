@@ -61,10 +61,10 @@
 
     <div class="container">
 
-      <form class="form-signin" target="/signin" method="post">
+      <form id="signin_form" class="form-signin" action="/auth" method="post" >
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
+        <input type="text" class="input-block-level" placeholder="Email address" >
+        <input type="password" class="input-block-level" placeholder="Password" >
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
@@ -89,6 +89,40 @@
     <script src="../bootstrap/js/bootstrap-collapse.js"></script>
     <script src="../bootstrap/js/bootstrap-carousel.js"></script>
     <script src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <script src="../script/malsup_form/jquery.form.js"></script>
 
+    <script>
+      $(document).ready(function(){
+        $('#signin_form').submit(function(){
+
+        var postData = {
+                username: $("#signin_form input[type='text']").val(),
+                password: $("#signin_form input[type='password']").val(),
+                remember: $("#signin_form input[type='checkbox']").is(":checked")
+            };
+
+        var options = {
+            data: postData,
+            dataType: 'json',
+            success: processLoginResult
+        };
+        $(this).ajaxSubmit(options);
+        //return false to prevent normal browser submit and page navigation
+        return false;
+    });
+
+      });
+
+      function processLoginResult( responseText, statusText, xhr, $form ){
+        //responseText is a json object
+        //sign in failed
+        if ( !responseText || responseText.statusCode !== 0 ){
+          $('#signin_form h2').append("<h4>" + JSON.stringify(responseText.err) + "</h4>");
+        }else{
+          window.location.replace('/product');
+        }
+        
+      }
+    </script>
   </body>
 </html>
