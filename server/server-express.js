@@ -24,7 +24,7 @@ app.use(express.session(
             path: "/",
             httpOnly: true,
             maxAge: null
-        },   */     
+        },  */      
         key: 'store4lucy', 
         secret: 'store 4 lucy', 
         store: sessionStore })

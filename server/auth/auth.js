@@ -59,6 +59,7 @@ function login(request, response){
                     //request.session.regenerate( function(){
                         request.session.username = userInfo.username;
                         console.log("set session username = " + request.session.username);
+                        console.log(request);
                         response.write(JSON.stringify(loginResult));
                         response.end();
                     //} );

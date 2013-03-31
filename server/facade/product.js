@@ -19,7 +19,6 @@ function getProductSummary(request, response){
     });
 
     request.on("end", function(){
-        console.log("data " + clientData);
         var param = JSON.parse(clientData);
 
         response.writeHead(200, {'Content-Type' : 'text/json'});
@@ -49,6 +48,7 @@ function getProductByID(request, response){
         clientData = clientData + chuck;
     });
     request.on("end", function(){
+        console.log("product-getProductByID, received client data = " + clientData);
         var param = JSON.parse(clientData);
         response.writeHead(200, {'Content-Type' : 'text/json'});
         //if user id admin role, send all product info back, else, dont send suppliers back
@@ -56,7 +56,6 @@ function getProductByID(request, response){
             //admin role user
             var operation;
             console.log("username in session = " + request.session.username);
-            console.log("err = " + err + ", admin = " + admin);
             if ( !err && admin ){
                 operation = 'queryProductByID';
             }else{

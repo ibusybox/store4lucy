@@ -75,9 +75,12 @@ function readProductByID(id, callback){
     });
     walker.on("file", function (root, fileStats, next){
         if ( utils.stringEndWith(fileStats.name, ".json") ){
+            console.log("productmgr-readProductByID, check file name " + fileStats.name + " and the id " + id);
             if ( fileStats.name == id + ".json" ){
                 //call productFileMgr
                 productFileMgr.readMDFile2Product( root + "/" + fileStats.name, callback );
+            }else{
+                next();
             }
         }else{
             next();
