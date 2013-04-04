@@ -35,15 +35,32 @@ app.use(express.session(
 
 var product = require('./facade/product');
 var auth = require('./auth/auth');
+var utils = require('./utils');
 
+//product index page
+app.get('/product', function(request, response){
+    utils.getHomePage(function( err, data ){
+        if ( err ){
+            response.writeHead(505);
+        }else{
+            response.writeHead(200, {'Content-Type' : 'text/html'});
+            response.write(data);
+        }
+        response.end();
+    });
+} );
 
 //get product summary by home page (index.html)
 app.post('/getProductSummary', product.getProductSummary);
 
 //get product detail by deail button on home page(index.html)
-app.post('/q', product.getProductByID);
+app.post('/product/q', product.getProductByID);
 
 app.post('/auth', auth.login);
+
+app.get('/', function(request, response){
+    response.redirect('/product');
+});
 
 
 app.listen(80);

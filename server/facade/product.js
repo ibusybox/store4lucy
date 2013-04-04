@@ -3,6 +3,7 @@
 * In this product facade implementation, each operation should check the permission and do different operation according to the permession.
 **/
 
+
 var utils = require('../utils');
 var productFacade = require('../productmgr/productfacade');
 var userMgr = require('../auth/usermgr');

@@ -8,6 +8,7 @@ var utils = require('../utils');
 function isAuth(request, response, username){
     return (typeof request.session != "undefined" ) && (request.session.username == username) ;
 }
+
 function auth(username, password, callback){
     usermgr.findUserByName(username, function(err, user){
         if ( err ){
@@ -26,6 +27,9 @@ function auth(username, password, callback){
 /**private methods end**/
 
 
+/**
+* the login
+**/
 function login(request, response){
     var loginData = '';
 
@@ -55,11 +59,13 @@ function login(request, response){
                     response.end();
                 }else{
                     loginResult.statusCode = 0;
+                    loginResult.username = userInfo.username;
                     //only express.use(express.session()) support this.
                     //request.session.regenerate( function(){
                         request.session.username = userInfo.username;
                         console.log("set session username = " + request.session.username);
                         console.log(request);
+
                         response.write(JSON.stringify(loginResult));
                         response.end();
                     //} );
