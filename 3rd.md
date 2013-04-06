@@ -1,7 +1,4 @@
 #3rd depends description
-##pagedown
-used to convert markdown to html
-[https://code.google.com/p/pagedown/wiki/PageDown](https://code.google.com/p/pagedown/wiki/PageDown)
 
 ##walk
 walk directories and collect files. [https://github.com/coolaj86/node-walk](https://github.com/coolaj86/node-walk)
@@ -12,5 +9,16 @@ used to popup dialog [http://www.jacklmoore.com/colorbox](http://www.jacklmoore.
 ##express
 the nodejs web framework
 
-##passport
-use authorication
+##ejs_1.0
+the EJS is like JSP or eRuby, enable program insert into html page.
+
+##jQuery-Form-Validator
+
+##malsup_form
+
+##glyphicons_free
+[http://glyphicons.com](http://glyphicons.com)  
+[http://twitter.github.com/bootstrap/base-css.html#icons](http://twitter.github.com/bootstrap/base-css.html#icons)
+##bootstrap
+
+

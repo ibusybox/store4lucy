@@ -16,7 +16,7 @@ var utils = require('../utils');
 * @method read the product markdown file and tranlsate to html format.
 * @param [filepath = string], the path of the markdown file.
 * @param [callback = function(err, data)], callback function when finish.
-**/
+*/
 function readMDFile2Product(filepath, callback){
     readMDFile2ProductSummary(filepath, callback);
 }

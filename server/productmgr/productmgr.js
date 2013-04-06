@@ -3,7 +3,6 @@
 
 /**Global variables start**/
 
-var walk = require('walk');
 
 var productFileMgr = require('./productfilemgr');
 
@@ -29,63 +28,47 @@ function getAllProductFilePath(rootpath){
 function readProductSummaryByID(count, current, callback){
     var index = 0;
     var product;
-    var found = false;
-
-    var walker = walk.walk(PRODUCT_REPO_PATH, {followLinks : false});
-
-    walker.on("directories", function (root, dirStatsArray, next){
-        next();
-    });
-    walker.on("errors", function (root, nodeStatsArray, next){
-        next();
-    });
-    walker.on("end", function (){
-        if ( ! found ){
-            callback("Product Not Found.", null);
-        }
-        console.log("end read products.");
-    });
-    walker.on("file", function (root, fileStats, next){
-        if ( utils.stringEndWith(fileStats.name, ".json") ){
-            if ( fileStats.name == current + ".json" ){
-                console.log("process file = " + fileStats.name);
-                productFileMgr.readMDFile2ProductSummary( root + "/" + fileStats.name, callback );
-                found = true;
+    var wantMore = true;
+    utils.walkDirectory( PRODUCT_REPO_PATH, 
+        {followLinks : false}, 
+        function( root, fileStats ){
+            if ( utils.stringEndWith(fileStats.name, ".json") ){
+                if ( fileStats.name == current + ".json" ){
+                    console.log("process file = " + fileStats.name);
+                    productFileMgr.readMDFile2ProductSummary( root + "/" + fileStats.name, callback );
+                    wantMore = false;
+                }
             }
+            return wantMore;
+    }, 
+    function(){
+        //not found
+        if ( wantMore ){
+            callback( "Requested product " + current + " not found.", null );
         }
-        if (index <= count && ! found){
-            next();
-        }
-        index ++;
-    });
+    } );
+
 
 }
 
 function readProductByID(id, callback){
-    var walker = walk.walk(PRODUCT_REPO_PATH, {followLinks : false});
-
-    walker.on("directories", function (root, dirStatsArray, next){
-        next();
-    });
-    walker.on("errors", function (root, nodeStatsArray, next){
-        next();
-    });
-    walker.on("end", function (){
-        console.log("end read products.");
-    });
-    walker.on("file", function (root, fileStats, next){
-        if ( utils.stringEndWith(fileStats.name, ".json") ){
-            console.log("productmgr-readProductByID, check file name " + fileStats.name + " and the id " + id);
-            if ( fileStats.name == id + ".json" ){
-                //call productFileMgr
-                productFileMgr.readMDFile2Product( root + "/" + fileStats.name, callback );
-            }else{
-                next();
+    var wantMore = true;
+    utils.walkDirectory( PRODUCT_REPO_PATH, {followLinks : false}, 
+        function(root, fileStats){
+            if ( utils.stringEndWith(fileStats.name, ".json") ){
+                if ( fileStats.name == id + ".json" ){
+                    productFileMgr.readMDFile2Product( root + "/" + fileStats.name, callback );
+                    wantMore = false;
+                }
             }
-        }else{
-            next();
-        }
-    });
+            return wantMore;
+        },  
+        function(){
+            //not found the product
+            if ( wantMore ){
+                callback("Can not found product by id " + id, null);
+            }
+        } );
 }
 
 /**Private function end**/

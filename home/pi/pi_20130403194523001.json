@@ -1,0 +1,7 @@
+{
+    "pi_no" : "pi_20130403194523001",
+    "product_list" : [1,2,3],
+    "creator" : "Fendo",
+    "order_belong_to" : "the order number",
+    "state" : 0
+}

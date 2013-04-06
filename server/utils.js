@@ -3,6 +3,8 @@ var KEY_2 = "password";
 
 var crypto = require('crypto');
 var fs = require('fs');
+var walk = require('walk');
+
 
 var INDEX_PAGE_PATH = 'server/static/index_sample.html';
 
@@ -35,10 +37,29 @@ function getHomePage(callback){
     } );
 }
 
+function walkDirectory(path, options, wantMore, finish){
+    var walker = walk.walk(path, options);
+
+    walker.on("directories", function (root, dirStatsArray, next){
+        next();
+    });
+    walker.on("errors", function (root, nodeStatsArray, next){
+        next();
+    });
+    walker.on("end", function (){
+        finish();
+    });
+    walker.on("file", function (root, fileStats, next){
+        if ( wantMore(root, fileStats) ){
+            next();
+        }
+    });
+}
+
 
 exports.stringEndWith = stringEndWith;
 exports.trim = trim;
 exports.encryptSync = encryptSync;
 exports.getHomePage = getHomePage;
+exports.walkDirectory = walkDirectory;
 
-console.log(encryptSync("fendo"));

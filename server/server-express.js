@@ -36,9 +36,9 @@ app.use(express.session(
 var product = require('./facade/product');
 var auth = require('./auth/auth');
 var utils = require('./utils');
+var PI = require('./facade/pi');
 
-//product index page
-app.get('/product', function(request, response){
+function getIndexSmapleHTML(request, response){
     utils.getHomePage(function( err, data ){
         if ( err ){
             response.writeHead(505);
@@ -47,8 +47,21 @@ app.get('/product', function(request, response){
             response.write(data);
         }
         response.end();
-    });
-} );
+    });    
+}
+
+//root is redirect to /product
+app.get('/', function(request, response){
+    response.redirect('/product');
+});
+
+//authoricate routers
+app.post('/auth', auth.login);
+
+
+//prodct routers
+//product index page
+app.get('/product', getIndexSmapleHTML);
 
 //get product summary by home page (index.html)
 app.post('/getProductSummary', product.getProductSummary);
@@ -56,12 +69,14 @@ app.post('/getProductSummary', product.getProductSummary);
 //get product detail by deail button on home page(index.html)
 app.post('/product/q', product.getProductByID);
 
-app.post('/auth', auth.login);
 
-app.get('/', function(request, response){
-    response.redirect('/product');
-});
 
+//PI routers
+//PI home page
+app.get('/pi', getIndexSmapleHTML);
+
+//get PI by count
+app.post('/pi/queryPIByCount', PI.queryPIByCount);
 
 app.listen(80);
 

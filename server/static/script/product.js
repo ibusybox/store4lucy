@@ -28,13 +28,7 @@ function queryProductByCount(){
                     $("<div class=\"row-fluid\"></div><hr>").insertBefore("footer");
                 }
                 $("div.row-fluid:last").append(html);    
-
-                //add the onclik action to the buttons in the button group
-                $("#btnGrp_" + data.feature.number + " button:contains('Detail')").bind('click', function(event){
-                    event.stopPropagation();
-                    queryProductByID(data.feature.number);
-                });
-                //alert($("#btnGrp_" + data.feature.number + " button:contains('Detail')").html());
+                bindBtnEvents(data.feature.number, data.feature.number);
             }else{
                 html = spanProduct( 0, "<h3>jQuery process error.</h3>" );
 
@@ -50,10 +44,10 @@ function queryProductByCount(){
 * @method Detail button onclick action. 
 * Popup a dialog to show the detai info.
 **/
-function queryProductByID(id){
-    $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : id}), function(data, textStatus){ 
+function queryProductByID(productId, btnGrpId){
+    $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : productId}), function(data, textStatus){ 
         if ( textStatus == "success" ){
-            $("#btnGrp_" + id).colorbox({opacity : 0, open : true, html : formatProductHtml(data)}); 
+            $("#btnGrp_" + btnGrpId ).colorbox({opacity : 0, open : true, html : formatProductHtml(data)}); 
         }else{
             $.colorbox({opacity : 1, html : "<h3>Get product detail error.</h3>"}); 
         }
@@ -68,12 +62,12 @@ function formatProductHtml(data){
     return html;
 }
 
-function spanProduct(id, html){
+function spanProduct(btnGrpId, html){
     //add the detail button first
     var retHtml = "<div class=\"span3\">" + html;
 
     //add the action group for product
-    var btnGrp = "<div id=\"" + "btnGrp_" + id + "\" class=\"btn-group\">";
+    var btnGrp = "<div id=\"" + "btnGrp_" + btnGrpId + "\" class=\"btn-group\">";
     btnGrp = btnGrp + "<button class=\"btn btn-info btn-small\" >Detail</button>";
     btnGrp = btnGrp + "<button class=\"btn btn-warning btn-small\" >Delete</button>";
     btnGrp = btnGrp + "</div>";
@@ -92,6 +86,20 @@ function convertJSON2ProductSummary(product){
     html = html + "<image src=\"" + product.images[0].imagesrc + "\"/>";
     html = html + "<p>" + product.feature.description + "</p>";
     return html;
+}
+
+function getProductToolbarHTML(){
+    return createDropdownMenu(['New Product']);
+}
+
+function bindBtnEvents(productId, btnGrpId){
+    //add the onclik action to the buttons in the button group
+    $("#btnGrp_" + btnGrpId + " button:contains('Detail')").bind('click', function(event){
+        event.stopPropagation();
+
+        queryProductByID( productId, btnGrpId );
+    });
+
 }
 
 

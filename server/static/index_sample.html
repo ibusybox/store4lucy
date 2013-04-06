@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>LUCY's Store</title>
+    <title>Store of Mandala Technologies Co., LTD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -28,15 +28,15 @@
 
   <body>
 
-    <div class="navbar nav-pills navbar-inverse navbar-fixed-top">
+    <div id="banner" class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <!--div class="container"-->
+          <!--a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">Lucy's Store</a>
+          </a-->
+          <a class="brand" href="/">Mandala's Store</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
 
@@ -44,14 +44,6 @@
               <li><a href="/pi">PI</a></li>
               <li><a href="#order">Order</a></li>
               <li><a href="#supplier">Supplier</a></li>
-
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DropDown<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#supplier">View Dropdown</a></li>
-                </ul>
-              </li>
-
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
@@ -60,11 +52,11 @@
               <button type="submit" class="btn btn-small btn-inverse"><img src="../glyphicons_free/glyphicons/png/glyphicons_027_search.png"/></button>
             </form>
           </div><!--/.nav-collapse -->
-        </div>
+        <!--/div-->
       </div>
     </div>
 
-    <div class="container-fluid" id="productContainer">
+    <div class="container-fluid" id="contentContainer">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <!--div class="hero-unit">
@@ -99,15 +91,22 @@
     <script src="../bootstrap/js/bootstrap-typeahead.js"></script>
     <script src="../colorbox/jquery.colorbox.js"></script>
     <script src="../ejs_1.0/ejs_production.js"></script>
-    <script src="../script/product.js"></script>
     <script src="../script/utils.js"></script>
+    <script src="../script/product.js"></script>
+    <script src="../script/pi.js"></script>
 
     <script>
+
       $(window).load(function(){
         var addr = window.location.href;
-        alert(addr);
-        if ( stringEndWith(addr, 'product') || stringEndWith(addr, 'product/') ){
+        if ( stringEndWith(addr, 'product') || stringEndWith( addr, 'product/') ){
+          //add the product menu
+          $("#banner div.navbar-inner div.nav-collapse ul.nav li:eq(0)").after(getProductToolbarHTML());
           queryProductByCount();
+        }else if ( stringEndWith(addr, 'pi') || stringEndWith( addr, 'pi/') ){
+          //add PI toolbar. used to filter product by state
+          $("#banner div.navbar-inner div.nav-collapse ul.nav li:eq(1)").after(getPIMenu());
+          queryPIByCount();
         }
       });
     </script>

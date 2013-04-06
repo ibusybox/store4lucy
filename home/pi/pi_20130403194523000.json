@@ -1,6 +1,6 @@
 {
-    "pi_no" : "",
-    "product_list" : "1,2,3,4,5",
+    "pi_no" : "pi_20130403194523000",
+    "product_list" : [1,2,3,4,5],
     "creator" : "Lucy",
     "order_belong_to" : "the order number",
     "state" : 0
