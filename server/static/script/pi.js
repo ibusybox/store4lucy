@@ -1,9 +1,6 @@
 var QUERY_PI_ONCE_COUNT = 5;
 var QUERY_PI_URL = '/pi/queryPIByCount';
 
-function getPIMenu(){
-return createDropdownMenu(['New PI']);
-}
 
 function queryPIByCount(){
     var count = 0;
@@ -29,15 +26,14 @@ function insertJson2DocumentAsHTML(PIJson){
     //end of row-fluid div
     html = html + '</div></div><h3>Products In PI</h3>';
 
-    $(html).insertBefore("footer");
-    //$("#contentContainer").append( html );
+    $("#contentContainer").append(html);
 
 
     //products info for PI is inside the second div
     var count = 0;
     for ( var i = 0; i < PIJson.product_list.length; i++ ){
       if ( count % 4 === 0 ){
-        $('<div class="row-fluid"></div><hr>').insertBefore("footer");
+        $("#contentContainer").append('<div class="row-fluid"></div><hr>');
       }
       var productSummary = convertJSON2ProductSummary( PIJson.product_list[i] );
       var productSpan = spanProduct( PIJson.pi_no + '_' + PIJson.product_list[i].feature.number, productSummary );

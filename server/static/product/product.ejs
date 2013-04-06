@@ -1,50 +1,76 @@
-<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-<div class="hero-unit">
-<div id="images">
-  <%
-    for ( var i = 0; i < images.length; i++){ %>
-      <image class="img-polaroid" width="100%" src="<%=images[i].imagesrc%>"/>
-  <%  }
-  %>
-  
-</div>
+<div class="row-fluid">
 
-<div id="feature">
-  <dl class="dl-horizontal">
-    <dt>number</dt>
-    <dd><%=feature.number%></dd>
-    <dt>name</dt>
-    <dd><%=feature.name%></dd>
-    <dt>model</dt>
-    <dd><%=feature.model%></dd>
-    <dt>color</dt>
-    <dd><%=feature.color%></dd>
-    <dt>description</dt>
-    <dd><%=feature.description%></dd>
-    <dt>material</dt>
-    <dd><%=feature.material%></dd>
-  </dl>
-</div>
-<hr/>
-<div id="suppliers">
-  <h4>suppliers</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>supplier name</th>
-        <th>price</th>
-      </tr>
-    </thead>
-    <tbody>
+<div class="span9">
+  <div class="hero-unit">
+    <div id="images">
       <%
-        for ( var i = 0; i < suppliers.length; i++){%>
-          <tr>
-            <td><%=suppliers[i].suppliername%></td>
-            <td><%=suppliers[i].price%></td>
-          </tr>
+        for ( var i = 0; i < images.length; i++){ %>
+          <p>
+            <%=images[i].imagedesc%>
+            <image class="img-polaroid" width="100%" src="<%=images[i].imagesrc%>"/>
+          </p>
+          
       <%  }
       %>
-    </tbody>
-  </table>
+  
+    </div>
+  </div>
 </div>
+
+
+<div class="span3">
+
+  <div id="operation">
+    <h4>You can</h4>
+    <div class="btn-group">
+      <button class="btn btn-inverse" type="button">Add To PI</button>
+      <button class="btn btn-inverse" type="button">Get Latest Price</button>
+      <button class="btn btn-danger" type="button">Delete</button>
+    </div>
+    <hr>
+  </div>
+
+  <div id="feature">
+    <h4>Product Description</h4>
+    <dl class="dl-horizontal">
+      <dt>number</dt>
+      <dd><%=feature.number%></dd>
+      <dt>name</dt>
+      <dd><%=feature.name%></dd>
+      <dt>model</dt>
+      <dd><%=feature.model%></dd>
+      <dt>color</dt>
+      <dd><%=feature.color%></dd>
+      <dt>description</dt>
+      <dd><%=feature.description%></dd>
+      <dt>material</dt>
+      <dd><%=feature.material%></dd>
+    </dl>
+  </div><!--feature div end-->
+<hr/>
+
+  <div id="suppliers">
+    <h4>Available Suppliers</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>supplier name</th>
+          <th>price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%
+          for ( var i = 0; i < suppliers.length; i++){%>
+            <tr>
+              <td><%=suppliers[i].suppliername%></td>
+              <td><%=suppliers[i].price%></td>
+            </tr>
+        <%  }
+        %>
+      </tbody>
+    </table>
+  </div><!--suppliers div end-->    
+
 </div>
+
+</div><!--row-fluid end-->

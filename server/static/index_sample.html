@@ -14,6 +14,9 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      #footer{
+        position: fixed;
+      }
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -67,11 +70,10 @@
 
       <!-- Example row of columns -->
 
-      <footer>
-        <p>&copy; Mandala Technologies Co., LTD All Rights Reserved 2013</p>
-      </footer>
-
     </div> <!-- /container -->
+    <footer>
+      <p>&copy; Mandala Technologies Co., LTD All Rights Reserved 2013</p>
+    </footer>
 
     <!-- Le javascript
     ================================================== -->
@@ -100,12 +102,8 @@
       $(window).load(function(){
         var addr = window.location.href;
         if ( stringEndWith(addr, 'product') || stringEndWith( addr, 'product/') ){
-          //add the product menu
-          $("#banner div.navbar-inner div.nav-collapse ul.nav li:eq(0)").after(getProductToolbarHTML());
           queryProductByCount();
         }else if ( stringEndWith(addr, 'pi') || stringEndWith( addr, 'pi/') ){
-          //add PI toolbar. used to filter product by state
-          $("#banner div.navbar-inner div.nav-collapse ul.nav li:eq(1)").after(getPIMenu());
           queryPIByCount();
         }
       });

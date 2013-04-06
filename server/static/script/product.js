@@ -25,7 +25,8 @@ function queryProductByCount(){
                 
                 //each row 4 columns
                 if (count % 4 === 0){
-                    $("<div class=\"row-fluid\"></div><hr>").insertBefore("footer");
+                    //$("<div class=\"row-fluid\"></div><hr>").insertBefore("footer");
+                    $("#contentContainer").append("<div class=\"row-fluid\"></div><hr>");
                 }
                 $("div.row-fluid:last").append(html);    
                 bindBtnEvents(data.feature.number, data.feature.number);
@@ -47,9 +48,15 @@ function queryProductByCount(){
 function queryProductByID(productId, btnGrpId){
     $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : productId}), function(data, textStatus){ 
         if ( textStatus == "success" ){
-            $("#btnGrp_" + btnGrpId ).colorbox({opacity : 0, open : true, html : formatProductHtml(data)}); 
+            //$("#btnGrp_" + btnGrpId ).colorbox({opacity : 0, open : true, html : formatProductHtml(data)}); 
+            $("#contentContainer").empty();
+            var html = formatProductHtml(data);
+            //alert(html);
+            //$(html).insertBefore("footer");
+            $("#contentContainer").append(html);
         }else{
-            $.colorbox({opacity : 1, html : "<h3>Get product detail error.</h3>"}); 
+            alert('Get product detail error.');
+            //$.colorbox({opacity : 1, html : "<h3>Get product detail error.</h3>"}); 
         }
                      
     }, 'json');
@@ -68,12 +75,11 @@ function spanProduct(btnGrpId, html){
 
     //add the action group for product
     var btnGrp = "<div id=\"" + "btnGrp_" + btnGrpId + "\" class=\"btn-group\">";
-    btnGrp = btnGrp + "<button class=\"btn btn-info btn-small\" >Detail</button>";
-    btnGrp = btnGrp + "<button class=\"btn btn-warning btn-small\" >Delete</button>";
+    btnGrp = btnGrp + "<button class=\"btn btn-link\" >Detail</button>";
+    //btnGrp = btnGrp + "<button class=\"btn btn-warning btn-small\" >Delete</button>";
     btnGrp = btnGrp + "</div>";
 
     retHtml = retHtml + btnGrp;
-    //retHtml = retHtml + "<input type=\"button\" id = \"" + id + "\"" + "class=\"btn btn-link\" value=\"More\" onclick=\"queryProductByID(this.id)\"/>";
 
     var span = retHtml + "</div>";
     return span;
@@ -86,10 +92,6 @@ function convertJSON2ProductSummary(product){
     html = html + "<image src=\"" + product.images[0].imagesrc + "\"/>";
     html = html + "<p>" + product.feature.description + "</p>";
     return html;
-}
-
-function getProductToolbarHTML(){
-    return createDropdownMenu(['New Product']);
 }
 
 function bindBtnEvents(productId, btnGrpId){

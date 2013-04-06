@@ -5,10 +5,11 @@
     "model" : "iPhone5,iPhone4",
     "color" : "red,white,black",
     "description" : "iPhone5 metal case best selling.",
+    "price" : "8 RMB",
     "material" : "PC"
     },
     
-    "images" : [{"imagesrc" : "sample.jpg"}],
+    "images" : [{"imagesrc" : "sample.jpg", "imagedesc" : "The backend view."}],
     "suppliers" : [
         {"supplier name" :  "Chuangjida",
        "price" : "6 RMB"},
