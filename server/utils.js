@@ -56,10 +56,32 @@ function walkDirectory(path, options, wantMore, finish){
     });
 }
 
+/**
+* Delete elements which match the 'cond' from the ary.
+* @param {Array} ary, the array to be operated
+* @param {function} cond, the deletion condition
+* @return {Array}, a new array which some elements deleted.
+* @api public
+*/
+function deleteIf( ary, cond ){
+    var newArray = [];
+    var len = ary.length;
+    for( var i = 0; i < len; i++ ){
+        if ( cond( ary[i] ) ){
+            //ary.splice(i, 1);
+            //do nothing
+        }else{
+            newArray.push(ary[i]);
+        }
+    }
+    return newArray;
+}
+
 
 exports.stringEndWith = stringEndWith;
 exports.trim = trim;
 exports.encryptSync = encryptSync;
 exports.getHomePage = getHomePage;
 exports.walkDirectory = walkDirectory;
+exports.deleteIf = deleteIf;
 

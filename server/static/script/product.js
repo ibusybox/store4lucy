@@ -29,7 +29,7 @@ function queryProductByCount(){
                     $("#contentContainer").append("<div class=\"row-fluid\"></div><hr>");
                 }
                 $("div.row-fluid:last").append(html);    
-                bindBtnEvents(data.feature.number, data.feature.number);
+                bindProductDetailBtnEvents(data.feature.number, data.feature.number, getProductDetail);
             }else{
                 html = spanProduct( 0, "<h3>jQuery process error.</h3>" );
 
@@ -45,29 +45,53 @@ function queryProductByCount(){
 * @method Detail button onclick action. 
 * Popup a dialog to show the detai info.
 **/
-function queryProductByID(productId, btnGrpId){
+function getProductDetail(productId, btnGrpId){
+    queryProductByID( productId, function( err, data ){
+        if ( err ){
+            alert('Get product detail error.');
+        }else{
+            $("#contentContainer").empty();
+            //insert product html framework to dom
+            var html = formatProductHtmlFrame(data);
+            $("#contentContainer").append(html);
+
+            //insert product image to dom
+            html = formatProductImageHtml( data );
+            $("#contentContainer #images").append(html);
+
+            //insert product description to dom
+            html = formatProductDescHtml( data );
+            $("#contentContainer #feature").append(html);
+        }
+    } );
+}
+
+function queryProductByID(productId, callback){
     $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : productId}), function(data, textStatus){ 
         if ( textStatus == "success" ){
-            //$("#btnGrp_" + btnGrpId ).colorbox({opacity : 0, open : true, html : formatProductHtml(data)}); 
-            $("#contentContainer").empty();
-            var html = formatProductHtml(data);
-            //alert(html);
-            //$(html).insertBefore("footer");
-            $("#contentContainer").append(html);
+            callback( null, data );
         }else{
-            alert('Get product detail error.');
-            //$.colorbox({opacity : 1, html : "<h3>Get product detail error.</h3>"}); 
+            callback( textStatus, null );
         }
                      
     }, 'json');
 
-
 }
 
-function formatProductHtml(data){
+function formatProductHtmlFrame(data){
     var html = new EJS({url : "/product/product.ejs"}).render(data);
     return html;
 }
+function formatProductImageHtml( data ){
+    var html = new EJS({url : "/product/product_image.ejs"}).render(data);
+    return html;
+}
+
+function formatProductDescHtml( data ){
+    var html = new EJS({url : "/product/product_desc.ejs"}).render(data);
+    return html;
+}
+
 
 function spanProduct(btnGrpId, html){
     //add the detail button first
@@ -94,12 +118,12 @@ function convertJSON2ProductSummary(product){
     return html;
 }
 
-function bindBtnEvents(productId, btnGrpId){
+function bindProductDetailBtnEvents(productId, btnGrpId, callback){
     //add the onclik action to the buttons in the button group
     $("#btnGrp_" + btnGrpId + " button:contains('Detail')").bind('click', function(event){
         event.stopPropagation();
 
-        queryProductByID( productId, btnGrpId );
+        callback( productId, btnGrpId );
     });
 
 }

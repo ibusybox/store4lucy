@@ -11,6 +11,7 @@ the nodejs web framework
 
 ##ejs_1.0
 the EJS is like JSP or eRuby, enable program insert into html page.
+[http://embeddedjs.com/](http://embeddedjs.com/)
 
 ##jQuery-Form-Validator
 

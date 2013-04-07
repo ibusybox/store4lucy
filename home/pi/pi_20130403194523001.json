@@ -1,7 +1,29 @@
 {
-    "pi_no" : "pi_20130403194523001",
-    "product_list" : [1,2,3],
+    "pi_no" : "PI_20130403194523001",
+    "product_id_list" : [1,2,3],
+    "product_list" : [
+        {"product_id" : 1, "color" : "Red", "amount" : 500, "price" : "5 RMB"},
+        {"product_id" : 1, "color" : "Blue", "amount" : 300, "price" : "5 RMB"},
+        {"product_id" : 2, "color" : "White", "amount" : 200, "price" : "7 RMB"},
+        {"product_id" : 3, "color" : "White", "amount" : 200, "price" : "7 RMB"}
+    ],
     "creator" : "Fendo",
+    "customer_name" : "Syed",
     "order_belong_to" : "the order number",
-    "state" : 0
+    "state" : 0,
+    "packing" : {
+        "box_amount" : 2,
+        "boxes" : [
+            {"box_number" : 1, "box_content" : [
+                {"product_id" : 1, "color" : "Red", "amount" : 250},
+                {"product_id" : 1, "color" : "Red", "amount" : 250}
+            ] },
+            {"box_number" : 2, "box_content" : [
+                {"product_id" : 1, "color" : "Blue", "amount" : 300},
+                {"product_id" : 2, "color" : "White", "amount" : 200},
+                {"product_id" : 3, "color" : "White", "amount" : 200}
+            ] }
+        ]
+    },
+    "shippment" : {"shipping_by" : "DHL", "tracking_number" : "2001234897D"}
 }

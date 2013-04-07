@@ -1,0 +1,51 @@
+<div class="row-fluid">
+
+    <div class="span9">
+        <div class="hero-unit">
+            <div id="images">
+                <!--the product info will be insert outside-->
+            </div>
+        </div>
+    </div><!--span9 end-->
+
+        <div class="span3">
+            
+            <div id="operation">
+                <h4>You can</h4>
+                <div class="btn-group">
+                    <button class="btn btn-inverse" type="button">Modify Purchase Info</button>
+                    <button class="btn btn-inverse" type="button">Remove From This PI</button>
+                </div>
+            </div><!--operation end-->
+
+            <div id="feature">
+                
+            </div><!--feature end-->
+
+            <div id="purchase">
+                <h4>This product is in <%=pi_no%></h4>
+                <strong>Your purchase summary</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Amount</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for( var i = 0; i < product_list.length; i++ ){ %>
+                                <tr>
+                                    <td><%=product_list[i].color%></td>
+                                    <td><%=product_list[i].amount%></td>
+                                    <td><%=product_list[i].price%></td>
+                                </tr>
+                        <%    }
+                        %>
+                    </tbody>
+                </table>
+            </div><!--purchase end-->
+        </div><!--span3 end-->
+
+</div><!--end of row-fluid-->

@@ -77,6 +77,8 @@ app.get('/pi', getIndexSmapleHTML);
 
 //get PI by count
 app.post('/pi/queryPIByCount', PI.queryPIByCount);
+//get PI by PI No.
+app.post('/pi/queryPIByNO', PI.queryPIByNO);
 
 app.listen(80);
 

@@ -3,8 +3,13 @@
 
 var PIFacade = require('../pimgr/pifacade');
 
+/**
+* Query one PI by the index of file read order index.
+* @param {object} HTTPRequest
+* @param {object} HTTPResponse
+* @return one PI object, which 'product_id_list' is replaced by the product whole content.
+*/
 function queryPIByCount(request, response){
-    console.log("come into queryPIByCount in pi.js");
     var clientData = '';
     request.setEncoding("utf8");
     request.on( 'data', function( chunk ){
@@ -27,4 +32,33 @@ function queryPIByCount(request, response){
     } );
 }
 
+/**
+* Query one specified product in specified PI.
+*/
+function queryPIByNO(request, response){
+    console.log('come into the queryPIByNO');
+    var clientData = '';
+    request.setEncoding("utf8");
+    request.on( 'data', function( chunk ){
+        clientData = clientData + chunk ;
+    } );
+    request.on( 'end', function(){
+        console.log('read client data = ' + clientData);
+        var param = JSON.parse(clientData);
+        response.writeHead(200, {'Content-Type' : 'text/json'});
+        PIFacade.operationSet['getPIContainsProduct']( param.product_id, param.pi_no, function( err, data ){
+            console.log('send data back, err = ' + err + ', data = ' + data );
+            if( err ){
+                response.write( err );
+                response.end();
+            }else{
+                response.write( JSON.stringify( data ) );
+                response.end();
+            }
+        } );
+    } );
+
+}
+
 exports.queryPIByCount = queryPIByCount;
+exports.queryPIByNO = queryPIByNO;
