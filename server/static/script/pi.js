@@ -2,6 +2,10 @@ var QUERY_PI_ONCE_COUNT = 5;
 var QUERY_PI_URL = '/pi/queryPIByCount';
 var QUERY_PI_BY_NO = '/pi/queryPIByNO';
 
+/**
+* Query PI by count index.
+* @api public Called by PI index page.
+*/
 function queryPIByCount(){
     var count = 0;
     for ( ; count < QUERY_PI_ONCE_COUNT; count ++ ){
@@ -17,8 +21,11 @@ function queryPIByCount(){
     }
 }
 
-
-/**Privat method start**/
+/**
+* Format PI html string from PI JSON data.
+* @param {Object} JSON data of PI.
+* @api private
+*/
 function insertJson2DocumentAsHTML(PIJson){
     var html = '';
     html = html + '<div class="row-fluid">' + '<div class="span12">' + '<h3>' + PIJson.pi_no + '</h3>'
@@ -36,7 +43,7 @@ function insertJson2DocumentAsHTML(PIJson){
       if ( count % 4 === 0 ){
         $("#contentContainer").append('<div class="row-fluid"></div><hr>');
       }
-      btnGrpId = PIJson.pi_no + '_' + PIJson.product_id_list[i].feature.number;
+      btnGrpId = 'btnGrp_' + PIJson.pi_no + '_' + PIJson.product_id_list[i].feature.number;
       var productSummary = convertJSON2ProductSummary( PIJson.product_id_list[i] );
       var productSpan = spanProduct( btnGrpId, productSummary );
       $("#contentContainer div.row-fluid:last").append( productSpan );
@@ -54,10 +61,14 @@ function insertJson2DocumentAsHTML(PIJson){
     return html;  
 }
 
+/**
+* View product detail in PI.
+* @param {string} The product ID which want view.
+* @param {string} The button group ID where the 'Detail' button located in.
+* @api public Called in bindProductDetailBtnEvents function of product.js, when user click the 'Detail' button.
+*/
 function ProductDetailOnClick( productId, btnGrpId ){
-    //var pi_no = $('#' + btnGrpId + ' input[name="pi_no"]');
-    var pi_no = 'PI_20130403194523000';
-    alert(pi_no);
+    var pi_no = $('#' + btnGrpId + ' input[name="pi_no"]').val();
     $.post( QUERY_PI_BY_NO, 
         JSON.stringify( {"pi_no" : pi_no, "product_id" : productId} ), 
         function( data, textStatus ){
@@ -80,4 +91,3 @@ function ProductDetailOnClick( productId, btnGrpId ){
             }
     }, 'json' );
 }
-/**Private method end**/

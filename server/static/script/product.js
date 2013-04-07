@@ -1,15 +1,14 @@
-/**Client script**/
 
 var QUERY_PRODUCT_SUMMARY_URL = '/getProductSummary';
 
 var SEARCH_PRODUCT_URL = '/product/q';
 
-/**Product manager start**/
 var QUERY_PRODUCT_BATCH_COUNT = 20;
 
+
 /**
-* @method Query product by count, called by the index.html page, when loading page.
-* 
+* Query product by count, called by the index.html page, when loading page.
+* @api public, called by index page
 **/
 function queryProductByCount(){
     var i = 0;
@@ -20,8 +19,9 @@ function queryProductByCount(){
         $.post(QUERY_PRODUCT_SUMMARY_URL, JSON.stringify({"maxcount" : QUERY_PRODUCT_BATCH_COUNT, "current" : i + 1}), function(data, textStatus){
             var html = '';
             if ( textStatus == "success" ){
+                var btnGrpId = 'btnGrp_' + data.feature.number;
                 //data is one createProductSummary object
-                html = spanProduct( data.feature.number, convertJSON2ProductSummary(data) );
+                html = spanProduct( btnGrpId, convertJSON2ProductSummary(data) );
                 
                 //each row 4 columns
                 if (count % 4 === 0){
@@ -29,7 +29,7 @@ function queryProductByCount(){
                     $("#contentContainer").append("<div class=\"row-fluid\"></div><hr>");
                 }
                 $("div.row-fluid:last").append(html);    
-                bindProductDetailBtnEvents(data.feature.number, data.feature.number, getProductDetail);
+                bindProductDetailBtnEvents(data.feature.number, btnGrpId, getProductDetail);
             }else{
                 html = spanProduct( 0, "<h3>jQuery process error.</h3>" );
 
@@ -42,8 +42,9 @@ function queryProductByCount(){
 }
 
 /**
-* @method Detail button onclick action. 
+* Detail button onclick action. 
 * Popup a dialog to show the detai info.
+* @api private
 **/
 function getProductDetail(productId, btnGrpId){
     queryProductByID( productId, function( err, data ){
@@ -66,6 +67,12 @@ function getProductDetail(productId, btnGrpId){
     } );
 }
 
+/**
+* Query one product detail by product ID.
+* @param {int} productId
+* @param {function} callback
+* @api private
+*/
 function queryProductByID(productId, callback){
     $.post(SEARCH_PRODUCT_URL, JSON.stringify({"id" : productId}), function(data, textStatus){ 
         if ( textStatus == "success" ){
@@ -78,27 +85,43 @@ function queryProductByID(productId, callback){
 
 }
 
+/**
+* Render EJS with data.
+* @api private
+*/
 function formatProductHtmlFrame(data){
     var html = new EJS({url : "/product/product.ejs"}).render(data);
     return html;
 }
+/**
+* Render EJS with data.
+* @api private
+*/
 function formatProductImageHtml( data ){
     var html = new EJS({url : "/product/product_image.ejs"}).render(data);
     return html;
 }
-
+/**
+* Render EJS with data.
+* @api private
+*/
 function formatProductDescHtml( data ){
     var html = new EJS({url : "/product/product_desc.ejs"}).render(data);
     return html;
 }
 
-
+/**
+* Format product HTML with span3, and add 'Detail' button.
+* @param {string} 'Detail' button group ID (actually the button group is no need, button is ok)
+* @param {string} HTML string who is inserted to the span3 div
+* @api public Called by the pi.js when display product in PI.
+*/
 function spanProduct(btnGrpId, html){
     //add the detail button first
     var retHtml = "<div class=\"span3\">" + html;
 
     //add the action group for product
-    var btnGrp = "<div id=\"" + "btnGrp_" + btnGrpId + "\" class=\"btn-group\">";
+    var btnGrp = "<div id=\"" + btnGrpId + "\" class=\"btn-group\">";
     btnGrp = btnGrp + "<button class=\"btn btn-link\" >Detail</button>";
     //btnGrp = btnGrp + "<button class=\"btn btn-warning btn-small\" >Delete</button>";
     btnGrp = btnGrp + "</div>";
@@ -109,6 +132,11 @@ function spanProduct(btnGrpId, html){
     return span;
 }
 
+/**
+* Format product summary html string by product json data.
+* @param {Object} JSON obect of product.
+* @api public Called by the pi.js when display product in PI.
+*/
 function convertJSON2ProductSummary(product){
     var html = '';
 
@@ -118,15 +146,19 @@ function convertJSON2ProductSummary(product){
     return html;
 }
 
+/**
+* Bind onclick event to 'Detail' button of product.
+* @param {string} The product ID.
+* @param {string} The button group ID who locate the 'Detail' button.
+* @param {function} Onclick event handler
+* @api public Called by the pi.js when view product detail in PI.
+*/
 function bindProductDetailBtnEvents(productId, btnGrpId, callback){
     //add the onclik action to the buttons in the button group
-    $("#btnGrp_" + btnGrpId + " button:contains('Detail')").bind('click', function(event){
+    $("#" + btnGrpId + " button:contains('Detail')").bind('click', function(event){
         event.stopPropagation();
 
         callback( productId, btnGrpId );
     });
 
 }
-
-
-/**Product manager end**/
