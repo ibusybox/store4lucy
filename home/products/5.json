@@ -1,15 +1,21 @@
 {
     "feature" : {
     "number" : 5,
-    "name" : "Metal case for iPhone4, iPhone5",
-    "model" : "iPhone5,iPhone4",
+    "name" : "Football Style Case for Blackberry Z10",
+    "model" : "Blackberry Z10",
     "color" : "red,white,black",
-    "description" : "iPhone5 metal case best selling.",
+    "description" : "Football style case for Blackberry Z10",
     "price" : "8 RMB",
     "material" : "PC"
     },
     
-    "images" : [{"imagesrc" : "sample.jpg", "imagedesc" : "The backend view."}],
+    "images" : [
+        {"imagesrc" : "足球纹/BB 10 Football pattern (1).jpg", "imagedesc" : "Football pattern"},
+        {"imagesrc" : "足球纹/BB 10 Football pattern (2).jpg", "imagedesc" : ""},
+        {"imagesrc" : "足球纹/BB 10 Football pattern (3).jpg", "imagedesc" : ""},
+        {"imagesrc" : "足球纹/BB 10 Football pattern (4).jpg", "imagedesc" : ""}
+
+    ],
     "suppliers" : [
         {"supplier name" :  "Chuangjida",
        "price" : "6 RMB"},

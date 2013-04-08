@@ -80,10 +80,10 @@ function ProductDetailOnClick( productId, btnGrpId ){
                 var html = new EJS( {url: '/script/pi.ejs'} ).render(data);
                 $("#contentContainer").append(html);
                 //insert product images
-                html = new EJS( {url: '/product/product_image.ejs'} ).render(data.product_id_list[0]);
+                html = new EJS( {url: '/script/product_image.ejs'} ).render(data.product_id_list[0]);
                 $("#images").append(html);
                 //insert product description
-                html = new EJS( {url: '/product/product_desc.ejs'} ).render(data.product_id_list[0]);
+                html = new EJS( {url: '/script/product_desc.ejs'} ).render(data.product_id_list[0]);
                 $("#feature").append(html);
 
             }else{

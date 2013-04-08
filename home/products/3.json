@@ -1,15 +1,17 @@
 {
     "feature" : {
     "number" : 3,
-    "name" : "Metal case for iPhone4, iPhone5",
-    "model" : "iPhone5,iPhone4",
+    "name" : "Wave Style TPU Case for Blackberry Z10",
+    "model" : "Blackberry Z10",
     "color" : "red,white,black",
-    "description" : "iPhone5 metal case best selling.",
+    "description" : "Wave style TPU case for Blackberry Z10",
     "price" : "8 RMB",
     "material" : "PC"
     },
     
-    "images" : [{"imagesrc" : "sample.jpg", "imagedesc" : "The backend view."}],
+    "images" : [
+        {"imagesrc" : "波浪纹TPU/001.jpg", "imagedesc" : "3 colors."}
+    ],
     "suppliers" : [
         {"supplier name" :  "Chuangjida",
        "price" : "6 RMB"},

@@ -1,15 +1,20 @@
 {
     "feature" : {
     "number" : 1,
-    "name" : "Metal case for iPhone4, iPhone5",
-    "model" : "iPhone5,iPhone4",
-    "color" : "red,white,black",
-    "description" : "iPhone5 metal case best selling.",
+    "name" : "Pouch for Blackberry Z10",
+    "model" : "Blackberry Z10",
+    "color" : "red,white,black,yellow,purple,pink,sky blue",
+    "description" : "Left-Right pouch for Blackberry Z10",
     "price" : "8 RMB",
     "material" : "PC"
     },
 
-    "images" : [{"imagesrc" : "sample.jpg", "imagedesc" : "The backend view."}],
+    "images" : [
+        {"imagesrc" : "皮套/675.jpg", "imagedesc" : "Front view"},
+        {"imagesrc" : "皮套/5678.jpg", "imagedesc" : "7 colors"},
+        {"imagesrc" : "皮套/54654.jpg", "imagedesc" : "Open view"},
+        {"imagesrc" : "皮套/56748.jpg", "imagedesc" : "Another view"}
+    ],
     "suppliers" : [
         {"suppliername" :  "创技达",
        "price" : "6 RMB"},

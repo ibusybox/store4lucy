@@ -36,7 +36,6 @@ function queryPIByCount(request, response){
 * Query one specified product in specified PI.
 */
 function queryPIByNO(request, response){
-    console.log('come into the queryPIByNO');
     var clientData = '';
     request.setEncoding("utf8");
     request.on( 'data', function( chunk ){
@@ -47,7 +46,7 @@ function queryPIByNO(request, response){
         var param = JSON.parse(clientData);
         response.writeHead(200, {'Content-Type' : 'text/json'});
         PIFacade.operationSet['getPIContainsProduct']( param.product_id, param.pi_no, function( err, data ){
-            console.log('send data back, err = ' + err + ', data = ' + data );
+            console.log('send data back, err = ' + err + ', data = ' + JSON.stringify(data) );
             if( err ){
                 response.write( err );
                 response.end();

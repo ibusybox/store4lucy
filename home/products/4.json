@@ -1,15 +1,19 @@
 {
     "feature" : {
     "number" : 4,
-    "name" : "Metal case for iPhone4, iPhone5",
-    "model" : "iPhone5,iPhone4",
+    "name" : "Diamond Case for Blackberry Z10",
+    "model" : "Blackberry Z10",
     "color" : "red,white,black",
-    "description" : "iPhone5 metal case best selling.",
+    "description" : "Diamond case for Blackberry Z10, the diamond is the small one.",
     "price" : "8 RMB",
     "material" : "PC"
     },
     
-    "images" : [{"imagesrc" : "sample.jpg", "imagedesc" : "The backend view."}],
+    "images" : [
+        {"imagesrc" : "满天星/BB 10 DIAMOND (1).jpg", "imagedesc" : "Small diamond inside the case."},
+        {"imagesrc" : "满天星/BB 10 DIAMOND (2).jpg", "imagedesc" : ""},
+        {"imagesrc" : "满天星/BB 10 DIAMOND.jpg", "imagedesc" : ""}
+    ],
     "suppliers" : [
         {"supplier name" :  "Chuangjida",
        "price" : "6 RMB"},

@@ -32,7 +32,6 @@ function getProductSummary(request, response){
                 response.write("query product failed, error = " + err);
             }
             response.end();
-            console.log("process queryProduct");
         });
 
     });

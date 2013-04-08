@@ -31,14 +31,14 @@ function getPIContainsProduct( productId, PI_NO, callback ){
         if ( err ){
             callback( err, null );
         }else{
-            //TODO, filter product_id_list and product_list by productId
+            //filter product_id_list and product_list by productId
 
             //product_id_list is replaced from id array to product array
             data.product_id_list = utils.deleteIf( data.product_id_list, function( product ){ 
-                return productId === product.feature.number; 
+                return productId !== product.feature.number; 
             } );
             data.product_list = utils.deleteIf( data.product_list, function( purchase ){ 
-                return purchase.product_id === productId;
+                return purchase.product_id !== productId;
             } );
             callback( null, data );
         }

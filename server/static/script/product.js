@@ -90,7 +90,7 @@ function queryProductByID(productId, callback){
 * @api private
 */
 function formatProductHtmlFrame(data){
-    var html = new EJS({url : "/product/product.ejs"}).render(data);
+    var html = new EJS({url : "/script/product.ejs"}).render(data);
     return html;
 }
 /**
@@ -98,7 +98,7 @@ function formatProductHtmlFrame(data){
 * @api private
 */
 function formatProductImageHtml( data ){
-    var html = new EJS({url : "/product/product_image.ejs"}).render(data);
+    var html = new EJS({url : "/script/product_image.ejs"}).render(data);
     return html;
 }
 /**
@@ -106,7 +106,7 @@ function formatProductImageHtml( data ){
 * @api private
 */
 function formatProductDescHtml( data ){
-    var html = new EJS({url : "/product/product_desc.ejs"}).render(data);
+    var html = new EJS({url : "/script/product_desc.ejs"}).render(data);
     return html;
 }
 

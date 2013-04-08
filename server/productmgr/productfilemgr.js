@@ -32,7 +32,6 @@ function readMDFile2ProductSummary(filepath, callback){
         if ( err ){
             callback( err, null );
         }else{
-            console.log("productfilemgr, rereadMDFile2ProductSummary data = " + data);
             callback( null, JSON.parse(data) );
         }
     });

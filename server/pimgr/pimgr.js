@@ -53,7 +53,7 @@ function getPIByCondition(cond, callback){
             fs.readFile( root + fileStats.name, "utf8", function( err, data ){
                 //data is represent the PI stored in File.
                 //we need add product_list to the PI before send to client
-                console.log("pimgr-getPIByCond, read pi from file = " + root + "/" + fileStats.name + ", read pi data = " + data );
+                console.log("pimgr-getPIByCond, read pi from file = " + root + "/" + fileStats.name  );
                 var PI = JSON.parse(data);
                 var productIdList = PI.product_id_list;
                 var productNum = productIdList.length;
