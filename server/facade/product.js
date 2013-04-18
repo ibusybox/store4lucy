@@ -77,5 +77,45 @@ function getProductByID(request, response){
 
 }
 
+/**
+* Get all categories of product. User can view product by category.
+* Response of HTTP Get for /product/q/categories
+* @param {HTTPRequest} 
+* @param {HTTPResponse}
+* @api public
+*/
+function getAllCategoriesOfProduct(request, response){
+    response.writeHead(200, {'Content-Type' : 'text/json'});
+    productFacade.queryAllCategoriesOfProduct( function( err, categories ){
+        if ( err ){
+            response.write(err);
+        }else{
+            response.write( JSON.stringify(categories) );
+        }
+        response.end();
+    } );
+}
+
+/**
+* Search all compatible brand of product, return to client as JSON data.
+* @param {HTTPRequest}
+* @param {HTTPResponse}
+* @api public
+*/
+function getCompatibleBrand(request, response){
+    response.writeHead(200, {'Content-Type' : 'text/json'});
+    productFacade.operationSet['queryCompatibleBrand']( function( err, brands ){
+        if ( err ){
+            response.write(err);
+        }else{
+            console.log('send brands: ' + JSON.stringify(brands) +' to client.' );
+            response.write(JSON.stringify(brands));
+        }
+        response.end();
+    } );
+}
+
 exports.getProductSummary = getProductSummary;
 exports.getProductByID = getProductByID;
+exports.getAllCategoriesOfProduct = getAllCategoriesOfProduct;
+exports.getCompatibleBrand = getCompatibleBrand;

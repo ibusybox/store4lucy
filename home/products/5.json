@@ -1,4 +1,5 @@
 {
+    "accessory_type" : "Case",
     "feature" : {
     "number" : 5,
     "name" : "Football Style Case for Blackberry Z10",
@@ -6,7 +7,8 @@
     "color" : "red,white,black",
     "description" : "Football style case for Blackberry Z10",
     "price" : "8 RMB",
-    "material" : "PC"
+    "material" : "PC",
+    "compatible_brand" : "Blackberry"
     },
     
     "images" : [

@@ -57,6 +57,43 @@ function walkDirectory(path, options, wantMore, finish){
 }
 
 /**
+* Walk through the product repository, read each product.
+* @param {string} repoPath, the repository path
+* @param {options} walk directory options
+* @param {function} onProduct, callback when each product read.
+* @param {function} callback when finish.
+* @api public 
+*/
+function forEachProduct( repoPath, options, onProduct, finish ){
+    walkDirectory( repoPath, options, function( root, fileStats ){
+        if ( stringEndWith(fileStats.name, ".json") ){
+            fs.readFile( root + '/' + fileStats.name, 'utf8', function( err, data ){
+                if ( err ){
+                    onProduct( err, null );
+                }else{
+                    onProduct( null, JSON.parse(data) );
+                }
+            });
+        }
+        return true;
+    }, finish );
+}
+
+/**
+* contains function for Array's prototype
+* @param {Object} target element which to be check contains in the array or not
+* @return {boolean} true if contains
+*/
+function arrayContainsPrototype( targetElement ){
+    for ( var i = 0; i < this.length; i++ ){
+        if ( this[i] == targetElement ){
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
 * Delete elements which match the 'cond' from the ary.
 * @param {Array} ary, the array to be operated
 * @param {function} cond, the deletion condition
@@ -84,4 +121,6 @@ exports.encryptSync = encryptSync;
 exports.getHomePage = getHomePage;
 exports.walkDirectory = walkDirectory;
 exports.deleteIf = deleteIf;
+exports.forEachProduct = forEachProduct;
+exports.arrayContainsPrototype = arrayContainsPrototype;
 

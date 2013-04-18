@@ -3,6 +3,8 @@ var QUERY_PRODUCT_SUMMARY_URL = '/getProductSummary';
 
 var SEARCH_PRODUCT_URL = '/product/q';
 
+var QUERY_ALL_BRAND_OF_PRODUC = '/product/q/compatible_brand';
+
 var QUERY_PRODUCT_BATCH_COUNT = 20;
 
 
@@ -86,6 +88,43 @@ function queryProductByID(productId, callback){
 }
 
 /**
+* Query all brands of all products.
+* @param {function} callback
+* @api private
+*/
+function queryAllBrandOfProduct( callback ){
+    $.get( QUERY_ALL_BRAND_OF_PRODUC, function( brands ){
+        callback( brands );
+    }, 'json' );
+}
+
+/**
+* Product homepage is list all compatible brands of mobile phone
+* @api public
+*/
+function setupProductHomePage(){
+    var html = '';
+    queryAllBrandOfProduct( function( brands ){
+        for ( var i = 0; i < brands.length; i++ ){
+            //wrap each brand to hero-unit block
+            html = wrapBrand2HeroUnit(brands[i]);
+            console.log(html);
+            $('#contentContainer').append(html);
+        }
+    } );
+}
+
+/**
+* Warp one brand to hero-unit html block
+* @api private
+*/
+function wrapBrand2HeroUnit(oneBrand){
+    var brand = {brand: oneBrand};
+    var html = new EJS({url : "/script/product_brand.ejs"}).render(brand);
+    return html;
+}
+
+/**
 * Render EJS with data.
 * @api private
 */
@@ -161,4 +200,9 @@ function bindProductDetailBtnEvents(productId, btnGrpId, callback){
         callback( productId, btnGrpId );
     });
 
+}
+
+function getAvaliableCategories(){
+    //categories are 3: material, price, model
+    
 }

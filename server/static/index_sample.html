@@ -14,6 +14,10 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      .toolbar-fixed-top{
+        position: fixed;
+        top: 60px;
+      }
 
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -29,7 +33,7 @@
 
   <body>
 
-    <div id="banner" class="navbar navbar-inverse navbar-fixed-top">
+    <div id="banner" class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -40,13 +44,20 @@
           <a class="brand" href="/">Mandala's Store</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-
-              <li><a href="/product">Product</a></li>
+              <li>
+                <a href="/product">Product</a>
+              </li>
               <li><a href="/pi">PI</a></li>
-              <li><a href="#order">Order</a></li>
+              <li><a href="/order">Order</a></li>
               <li><a href="#supplier">Supplier</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#">New Prdouct</a></li>
+                  </ul>
+              </li>
             </ul>
             <form class="navbar-search pull-right">
               <input class="search-query span3" type="text" placeholder="Type to search">
@@ -69,6 +80,7 @@
       <!-- Example row of columns -->
 
     </div> <!-- /container -->
+    
     <footer>
       <p>&copy; Mandala Technologies Co., LTD All Rights Reserved 2013</p>
     </footer>
@@ -94,6 +106,7 @@
     <script src="../script/utils.js"></script>
     <script src="../script/product.js"></script>
     <script src="../script/pi.js"></script>
+    <script src="../script/order.js"></script>
 
     <script>
 
@@ -101,8 +114,11 @@
         var addr = window.location.href;
         if ( stringEndWith(addr, 'product') || stringEndWith( addr, 'product/') ){
           queryProductByCount();
+          //setupProductHomePage();
         }else if ( stringEndWith(addr, 'pi') || stringEndWith( addr, 'pi/') ){
           queryPIByCount();
+        }else if ( stringEndWith(addr, 'order') || stringEndWith( addr, 'order/') ){
+          queryOrderByCount();
         }
       });
     </script>

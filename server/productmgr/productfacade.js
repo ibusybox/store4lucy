@@ -16,7 +16,9 @@ var productMgr = new ProductMgr.productMgr();
 var operationSet = {
     queryProductSummary: queryProductSummary, 
     queryProductByID: queryProductByID, 
-    queryProductByIDWithoutSuppliers: queryProductByIDWithoutSuppliers
+    queryProductByIDWithoutSuppliers: queryProductByIDWithoutSuppliers,
+    queryAllCategoriesOfProduct: queryAllCategoriesOfProduct,
+    queryCompatibleBrand: queryCompatibleBrand
 };
 
 
@@ -62,6 +64,14 @@ function queryProductByIDWithoutSuppliers(id, callback){
             callback( null, product );
         }
     } );
+}
+
+function queryAllCategoriesOfProduct( callback ){
+    productMgr.getAllCategoriesOfProduct( callback );
+}
+
+function queryCompatibleBrand( callback ){
+    productMgr.getAllCompatibleBrand( callback );
 }
 
 //request handles end

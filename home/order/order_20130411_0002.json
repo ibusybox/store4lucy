@@ -1,0 +1,10 @@
+{
+    "order_no" : "order_20130411_0002",
+    "created_on" : "2013-04-01",
+    "creator" : "Lucy",
+    "customer" : "Asif",
+    "description" : "",
+    "state" : 0,
+    "pi_list" : ["PI_002_order_20130411_0002", "PI_001_order_20130411_0002"],
+    "product_list" : [1]
+}

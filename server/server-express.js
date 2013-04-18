@@ -37,6 +37,7 @@ var product = require('./facade/product');
 var auth = require('./auth/auth');
 var utils = require('./utils');
 var PI = require('./facade/pi');
+var order = require('./facade/order');
 
 function getIndexSmapleHTML(request, response){
     utils.getHomePage(function( err, data ){
@@ -69,6 +70,14 @@ app.post('/getProductSummary', product.getProductSummary);
 //get product detail by deail button on home page(index.html)
 app.post('/product/q', product.getProductByID);
 
+//get all categories of product
+app.get('/product/q/categories', product.getAllCategoriesOfProduct);
+
+app.get('/product/q/compatible_brand', product.getCompatibleBrand);
+
+//app.get('/product/q/?type=model');
+
+//app.get('/product/q/type/?model=iPhone5');
 
 
 //PI routers
@@ -79,6 +88,13 @@ app.get('/pi', getIndexSmapleHTML);
 app.post('/pi/queryPIByCount', PI.queryPIByCount);
 //get PI by PI No.
 app.post('/pi/queryPIByNO', PI.queryPIByNO);
+
+
+app.get('/order', getIndexSmapleHTML);
+app.get('/order/q/count', order.queryOrderByCount);
+
+
+
 
 app.listen(80);
 

@@ -16,14 +16,69 @@ var PRODUCT_REPO_PATH = 'home/products/';
 var ERROR_NO_PRODUCT = 100;
 /**Error code end**/
 
+Array.prototype.contains = utils.arrayContainsPrototype;
 
-/**Private function start**/
+function getAllCompatibleBrand( callback ){
+    var brand = {brands: []};
 
-//get all the product file path
-function getAllProductFilePath(rootpath){
-
+    utils.forEachProduct( PRODUCT_REPO_PATH, {followLinks : false}, 
+    function( err, product ){
+        if ( err ){
+            console.log('productmgr-getAllCompatibleBrand, read product error = ' + err );
+        }else{
+            if ( ! brand.brands.contains( product.feature.compatible_brand ) ){
+                brand.brands.push(product.feature.compatible_brand);
+            }
+        }
+   }, 
+    function(){
+        callback( null, brand.brands );
+    } ); 
 }
+/**
+* Walk through the product repository and find the product categories.
+* Categories contains properties of product are: model, material, price.
+* @param {function} callback
+* @api public
+*/
+function getAllCategoriesOfProduct( callback ){
+    var categories;
+    var product;
+    utils.walkDirectory( PRODUCT_REPO_PATH, {followLinks : false},
+        function( root, fileStats ){
+            //json file is treated as product
+            if ( utils.stringEndWith(fileStats.name, ".json") ){
+                fs.readFile( root + '/' + fileStats.name, 'utf8', function( err, data ){
+                    if ( err ){
+                        console.log('productmgr-getAllCategoriesOfProduct, read file ' + fileStats.name + ' failed, err = ' + err);
+                    }else{
+                        product = JSON.parse(data);
+                        //save product materil, model, price
+                        if ( ! categories.models ){
+                            categories.models = [];
+                        }
+                        if ( ! categories.models.contains(product.model) ){
+                            categories.models.push(product.model);
+                        }
+                        if ( ! categories.price ){
+                            categories.price = [];
+                        }
+                        categories.price.push(product.price);
+                        if ( ! categories.materials ){
+                            categories.materials = [];
+                        }
+                        if ( ! categories.materials.contains(product.model) ){
+                            categories.materials.push(product.model);
+                        }
 
+                    }
+                } );   
+            }
+        },
+        function(){
+            callback( null, categories);
+        } );
+}
 
 function readProductSummaryByID(count, current, callback){
     var index = 0;
@@ -71,9 +126,6 @@ function readProductByID(id, callback){
         } );
 }
 
-/**Private function end**/
-
-
 
 /**
 @method Query product info by count. Called by the request handle.
@@ -107,6 +159,8 @@ product manager facade
 function productMgr(){
     this.queryProductSummaryByCount = queryProductSummaryByCount;
     this.queryProductByID = queryProductByID;
+    this.getAllCategoriesOfProduct = getAllCategoriesOfProduct;
+    this.getAllCompatibleBrand = getAllCompatibleBrand;
 }
 
 exports.productMgr = productMgr;

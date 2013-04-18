@@ -1,4 +1,5 @@
 {
+    "accessory_type" : "Pouch",
     "feature" : {
     "number" : 1,
     "name" : "Pouch for Blackberry Z10",
@@ -6,7 +7,8 @@
     "color" : "red,white,black,yellow,purple,pink,sky blue",
     "description" : "Left-Right pouch for Blackberry Z10",
     "price" : "8 RMB",
-    "material" : "PC"
+    "material" : "PC",
+    "compatible_brand" : "Blackberry"
     },
 
     "images" : [

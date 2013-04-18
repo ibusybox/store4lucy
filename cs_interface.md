@@ -78,3 +78,16 @@ post
 {"pi_no" : pi_no, "product_id" : productId}
 ###output
 The PI data storage, but replace the value of "product_id_list" to the real product data. And contains only one product data.
+
+#/order/q/count interface description
+###description
+query Order by count index.
+###reques type
+get
+###url format
+/order/q/count/?maxcount=6&current=1
+###input
+empty
+###output
+{error: error, data: ${the Order storage JSON} }.
+

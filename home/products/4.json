@@ -1,4 +1,5 @@
 {
+    "accessory_type" : "Case",
     "feature" : {
     "number" : 4,
     "name" : "Diamond Case for Blackberry Z10",
@@ -6,7 +7,8 @@
     "color" : "red,white,black",
     "description" : "Diamond case for Blackberry Z10, the diamond is the small one.",
     "price" : "8 RMB",
-    "material" : "PC"
+    "material" : "PC",
+    "compatible_brand" : "Blackberry"
     },
     
     "images" : [

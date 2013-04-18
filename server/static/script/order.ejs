@@ -1,0 +1,33 @@
+<div class="span3">
+<h4><a href="/order/q/no/?order_no=<%=order.order_no%>"><%=order.order_no%></a></h4>
+<%
+var product_num = order.product_list.length;
+if ( product_num > 0 ){ 
+  var product_id_list = order.product_list[0];
+
+  for( var i = 1; i < product_num; i++ ){
+    product_id_list = product_id_list + ',' + order.product_list[i];
+  }
+%>
+  <p><em>There are <a href="/product/q/id/<%=product_id_list%>"><strong><%=product_num%></strong></a> products in this order, not included any PI yet.</em></p>
+<%}
+%>
+<h4>Order summary</h4>
+<dl class="dl-horizontal">
+  <dt>Order description</dt>
+  <dd><%=order.description || "empty"%></dd>
+  <dt>Create Time</dt>
+  <dd><%=order.created_on%></dd>
+  <dt>Creator</dt>
+  <dd><%=order.creator%></dd>
+  <dt>Belongs To</dt>
+  <dd><%=order.customer%></dd>
+  <dt>Order State</dt>
+  <dd><%=order.state%></dd>
+</dl>
+<h4>PI belongs to this order</h4>
+<%for ( var i = 0; i < order.pi_list.length; i++ ){%>
+    <a href="/pi/q/no/?pi_no=<%=order.pi_list[i]%>"><%=order.pi_list[i]%></a>  
+<%}%>
+
+</div>
