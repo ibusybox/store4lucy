@@ -3,7 +3,7 @@
 2. jquery
 
 ###insall and run server
-download source code, then cd to the root directory, execute "sudo node serverjs/server.js".
+download source code, then cd to the root directory, execute "sudo node serverjs/server-express.js".
 
 ###run client
 http://localhost/product
