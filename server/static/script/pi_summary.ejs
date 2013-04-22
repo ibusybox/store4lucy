@@ -1,0 +1,5 @@
+<div class="span3">
+    <h4><a href="/pi/q/no/html/?pi_no=<%=pi.pi_no%>"><%=pi.pi_no%></a></h4>
+    <p>This PI(Proforma Invoice) belongs to order <a href="/order/q/no/html/?order_no=<%=pi.order_belongs_to%>"><%=pi.order_belongs_to%></a>, contains <a href="/product/q/id_list/html/?id_list=<%=pi.product_id_list.join()%>"><%pi.product_id_list.length%><strong><%=pi.product_id_list.length%></strong></a> products.</p>
+    <p>PI State <span calss="badge badge-warning"><%=pi.state%></span></p>
+</div>

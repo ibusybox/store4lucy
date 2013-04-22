@@ -1,51 +1,94 @@
+
+<!--purchase summary info-->
 <div class="row-fluid">
+    <div class="span6">
+        <h4>Purchase Information</h4>
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Product Description</th>
+                    <th>Color</th>
+                    <th>Purchase Amount</th>
+                    <th>Unit Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for( var i = 0; i < pi.product_purchase_list.length; i++ ){
+                    var product = '';
+                    for( var j = 0; j < pi.product_list.length; j++ ){
+                        if ( pi.product_list[j].feature.number == pi.product_purchase_list[i].product_id ){
+                            product = pi.product_list[j];
+                            break;
+                        }
+                    }
+                %>
+                    <tr>
+                        <td><a href="/product/q/id/html/?id=<%=product.feature.number%>"><image src="/<%=product.images[0].imagesrc%>"/></a></td>
+                        <td><%=product.feature.description%></td>
+                        <td><%=pi.product_purchase_list[i].color%></td>
+                        <td><%=pi.product_purchase_list[i].amount%></td>
+                        <td><%=pi.product_purchase_list[i].price%></td>
+                        <td><button>Atction</button></td>
+                    </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
 
-    <div class="span9">
-        <div class="hero-unit">
-            <div id="images">
-                <!--the product info will be insert outside-->
-            </div>
-        </div>
-    </div><!--span9 end-->
-
-        <div class="span3">
+    <!--shippment info-->
+    <div class="span6">
+        <h4>Packing Information</h4>
+        <!--packing table-->
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>Box No.</th>
+                    <th>Product</th>
+                    <th>Product Description</th>
+                    <th>Color</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+        <%
+            var boxes = pi.packing.boxes;
             
-            <div id="operation">
-                <h4>You can</h4>
-                <div class="btn-group">
-                    <button class="btn btn-inverse" type="button">Modify Purchase Info</button>
-                    <button class="btn btn-inverse" type="button">Remove From This PI</button>
-                </div>
-            </div><!--operation end-->
+            for(var i = 0; i < boxes.length; i++ ){
+        %>
+                <tr>
+                    <td rowspan="<%=boxes[i].box_content.length%>"><image src="/icons/box.png">Box <%=boxes[i].box_number%></td>
+                        <%for ( var k = 0; k < boxes[i].box_content.length; k++ ){
 
-            <div id="feature">
-                
-            </div><!--feature end-->
-
-            <div id="purchase">
-                <h4>This product is in <%=pi_no%></h4>
-                <strong>Your purchase summary</strong>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Color</th>
-                            <th>Amount</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for( var i = 0; i < product_list.length; i++ ){ %>
-                                <tr>
-                                    <td><%=product_list[i].color%></td>
-                                    <td><%=product_list[i].amount%></td>
-                                    <td><%=product_list[i].price%></td>
-                                </tr>
-                        <%    }
+                            var product = '';
+                            for( var l = 0; l < pi.product_list.length; l++ ){
+                                if ( pi.product_list[l].feature.number == boxes[i].box_content[k].product_id ){
+                                    product = pi.product_list[l];
+                                    break;
+                                }
+                            }
                         %>
-                    </tbody>
-                </table>
-            </div><!--purchase end-->
-        </div><!--span3 end-->
+                                <!--for merge cell vertical by Box No column-->
+                                <%if( k !== 0 ){ %>
+                                    <tr>
+                                <%} %>
+                                    <td><a href="/product/q/id/html/?id=<%=product.feature.number%>"><image src="/<%=product.images[0].imagesrc%>"/></a></td>
+                                    <td><%=product.feature.description%></td>
+                                    <td><%=boxes[i].box_content[k].color%></td>
+                                    <td><%=boxes[i].box_content[k].amount%></td>
+                                <%if( i !== 0){ %>
+                                    </tr>
+                                <%}%>
+                        <%}%>
+                </tr>
+            </tbody>
 
-</div><!--end of row-fluid-->
+        <%  }
+        %>
+        </table><!--packing table end-->
+        
+
+    </div><!--end shippment info-->
+
+</div><!--purchase end-->

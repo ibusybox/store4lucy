@@ -9,7 +9,7 @@ if ( product_num > 0 ){
     product_id_list = product_id_list + ',' + order.product_list[i];
   }
 %>
-  <p><em>There are <a href="/product/q/id/<%=product_id_list%>"><strong><%=product_num%></strong></a> products in this order, not included any PI yet.</em></p>
+  <p><em>There are <a href="/product/q/id_list/html/?id_list=<%=product_id_list%>"><strong><%=product_num%></strong></a> products in this order, not included any PI yet.</em></p>
 <%}
 %>
 <h4>Order summary</h4>
