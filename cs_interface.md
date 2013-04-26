@@ -1,12 +1,4 @@
-#interface url
-##servlet name
-/queryProduct
-##post param
-queryType=byCount,
-Count=50
-
-#product data struct between browser and server
-##this one also the product storage format
+#product storage data struct
 {
     "products" : [
         {
@@ -22,6 +14,58 @@ Count=50
         {...}
     ]
 }
+
+#product related interface description
+##1. /product/q/id/json interface description
+###description
+query product by ID
+###request type
+**get**
+###input
+**/?id=1**
+###output
+if admin user then output JSON data, same as the product storage, else output product storate withtou suppliers info.
+
+##2. /product/q/id/html interface description
+###description
+This URL just redirect to /product/q/id/json
+###request type
+get
+###input
+/?id=1
+###output
+redirect to /product/q/id/json
+
+
+##2. /product/q/id_list/json interface description
+###description
+Query product by specified a list of prudct id
+###request type
+**get**
+###input
+**?id_list=1,2**
+###output
+output JSON data, as an array of product.
+
+##3. /product/q/id_list/html interface description
+###description
+The url just redirect to /product/q/id_list/json and append the url parameters.
+###request type
+get
+###input
+/?id_list=1,2,3
+###output
+redirect
+
+##4. /product/q/compatible_brand interface description
+###description
+query brands of all product.
+###request type
+get
+###input
+N/A
+###output
+an array contains brand as string
 
 
 #PI data struct storage style
@@ -59,35 +103,36 @@ Count=50
     "shippment" : {"shipping_by" : "DHL", "tracking_number" : "2001234897D"}
 }
 
-#/pi/queryPIByCount interface description
+#PI related interface description
+##/pi/q/count/json interface description
 ###description
-query PI object by count index
+query PI object by count index json data
 ###request type
-post
+get
 ###input
-{'maxcount' : QUERY_PI_ONCE_COUNT, 'current' : count}
+/?count_list=1,2,3
 ###output
-The PI data storage, but replace the value of "product_id_list" to the real product data
+The PI data storage, but add a "product_list" attribute that represent all product in this PI.
 
-#/pi/getProductInPI interface description
+##/pi/q/count/html interface description
 ###description
-Use to get one product in the specified PI
+Query PI object by count index html format
 ###request type
-post
+get
 ###input
-{"pi_no" : pi_no, "product_id" : productId}
+/?count_list=1,2,3
 ###output
-The PI data storage, but replace the value of "product_id_list" to the real product data. And contains only one product data.
+call /pi/q/count/json and process the got json data
 
-#/order/q/count interface description
+##/pi/q/no/json interface description
 ###description
-query Order by count index.
+query PI detail by PI No.
 ###reques type
 get
-###url format
-/order/q/count/?maxcount=6&current=1
 ###input
-empty
+/?pi_no=xxxx
 ###output
 {error: error, data: ${the Order storage JSON} }.
+
+##/pi/q/no/html interface description
 

@@ -63,12 +63,13 @@ app.post('/auth', auth.login);
 //prodct routers
 //product index page
 app.get('/product', getIndexSmapleHTML);
-
+app.get('/product/q/id_list/html', getIndexSmapleHTML);
 //get product summary by home page (index.html)
-app.post('/getProductSummary', product.getProductSummary);
+app.get('/product/q/id_list/json', product.getProductByIDList);
 
 //get product detail by deail button on home page(index.html)
-app.post('/product/q', product.getProductByID);
+app.get('/product/q/id/html', getIndexSmapleHTML);
+app.get('/product/q/id/json', product.getProductByID);
 
 //get all categories of product
 app.get('/product/q/categories', product.getAllCategoriesOfProduct);
@@ -83,17 +84,18 @@ app.get('/product/q/compatible_brand', product.getCompatibleBrand);
 //PI routers
 //PI home page
 app.get('/pi', getIndexSmapleHTML);
-
 //get PI by count
-app.post('/pi/queryPIByCount', PI.queryPIByCount);
+app.get('/pi/q/count/json', PI.queryPIByCount);
+app.get('/pi/q/count/html', getIndexSmapleHTML);
+
 //get PI by PI No.
-app.post('/pi/queryPIByNO', PI.queryPIByNO);
+app.get('/pi/q/no/json', PI.queryPIDetailByNOWithProductContent);
+app.get('/pi/q/no/html', getIndexSmapleHTML);
 
 
 app.get('/order', getIndexSmapleHTML);
-app.get('/order/q/count', order.queryOrderByCount);
-
-
+app.get('/order/q/count/json', order.queryOrderByCount);
+app.get('/order/q/count/html', getIndexSmapleHTML);
 
 
 app.listen(80);

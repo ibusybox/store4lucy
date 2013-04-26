@@ -16,7 +16,7 @@ var productMgr = new ProductMgr.productMgr();
 function getPIByIndex( index, callback ){
     getPIByCondition( function(fileIndex, PIFileName){
         //PIFileName is the PI number
-        return index === fileIndex;
+        return index == fileIndex;
     }, callback );
 }
 
@@ -28,7 +28,6 @@ function getPIByIndex( index, callback ){
 */
 function getPIByPINO( PINO, callback ){
     getPIByCondition( function(fileIndex, PIFileName){
-        console.log('pimgr-getPIByPINO, fileIndex = ' + fileIndex + ', PIFileName = ' + PIFileName + ', PINO = ' + PINO);
         return (PINO + '.json').toUpperCase() === PIFileName.toUpperCase();
     }, callback );
 }
@@ -55,30 +54,7 @@ function getPIByCondition(cond, callback){
                 //we need add product_list to the PI before send to client
                 console.log("pimgr-getPIByCond, read pi from file = " + root + "/" + fileStats.name  );
                 var PI = JSON.parse(data);
-                var productIdList = PI.product_id_list;
-                var productNum = productIdList.length;
-                //counter used in asyn in loop
-                var counter = productNum;
-                //reset the product_list of PI, store the new Product Json object
-                PI.product_id_list = [];
-
-                //read product by id
-                for ( var i = 0; i < productNum; i++ ){
-                    productMgr.queryProductByID( productIdList[i], function( productErr, productJson ){
-                        if ( productErr ){
-                            //just record
-                            console.log( "pimgr-getPIByCond, read product error = " + productErr );
-                        }else{
-                            PI.product_id_list.push( productJson );
-                        }
-                        counter--;
-
-                        //callback when last product read
-                        if ( counter === 0 ){
-                            callback( null, PI );
-                        }
-                    } );
-                }
+                callback( null, PI );
             });
             wantMore = false;
         }

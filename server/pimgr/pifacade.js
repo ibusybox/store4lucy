@@ -5,7 +5,7 @@ var PIMgr = require('./pimgr');
 //The operation set export to the facade module
 var operationSet = {
     getPIByIndex: getPIByIndex,
-    getPIContainsProduct: getPIContainsProduct
+    getPIByNO: getPIByNO
 };
 
 /**
@@ -26,7 +26,7 @@ function getPIByIndex( index, callback ){
 * @param {function} callback
 * @api public
 */
-function getPIContainsProduct( productId, PI_NO, callback ){
+function getPIByNO( PI_NO, callback ){
     PIMgr.getPIByPINO( PI_NO, function(err, data){
         if ( err ){
             callback( err, null );
@@ -34,12 +34,6 @@ function getPIContainsProduct( productId, PI_NO, callback ){
             //filter product_id_list and product_list by productId
 
             //product_id_list is replaced from id array to product array
-            data.product_id_list = utils.deleteIf( data.product_id_list, function( product ){ 
-                return productId !== product.feature.number; 
-            } );
-            data.product_list = utils.deleteIf( data.product_list, function( purchase ){ 
-                return purchase.product_id !== productId;
-            } );
             callback( null, data );
         }
     } );

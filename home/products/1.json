@@ -11,6 +11,9 @@
     "compatible_brand" : "Blackberry"
     },
 
+    "pi_belongs_to" : [],
+    "order_belongs_to" : [],
+
     "images" : [
         {"imagesrc" : "皮套/675.jpg", "imagedesc" : "Front view"},
         {"imagesrc" : "皮套/5678.jpg", "imagedesc" : "7 colors"},

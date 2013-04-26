@@ -4,6 +4,8 @@ var KEY_2 = "password";
 var crypto = require('crypto');
 var fs = require('fs');
 var walk = require('walk');
+var url = require('url');
+var querystring = require('querystring');
 
 
 var INDEX_PAGE_PATH = 'server/static/index_sample.html';
@@ -114,6 +116,13 @@ function deleteIf( ary, cond ){
     return newArray;
 }
 
+/**
+* Warp request parameters as an object
+*/
+function getRequestParam(request){
+    return querystring.parse( url.parse(request.url).query );
+}
+
 
 exports.stringEndWith = stringEndWith;
 exports.trim = trim;
@@ -123,4 +132,5 @@ exports.walkDirectory = walkDirectory;
 exports.deleteIf = deleteIf;
 exports.forEachProduct = forEachProduct;
 exports.arrayContainsPrototype = arrayContainsPrototype;
+exports.getRequestParam = getRequestParam;
 
