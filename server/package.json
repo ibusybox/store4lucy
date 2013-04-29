@@ -6,6 +6,6 @@
   "dependencies" : {
     "express" : "3.x",
     "walk" : "2.x",
-    "ejs" : "*"
+    "pdfkit" : "0.x.x"
 }
 }

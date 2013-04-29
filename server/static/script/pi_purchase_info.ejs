@@ -1,0 +1,26 @@
+<!--
+input data: {product: the product, product_purchase: the product purchase info}
+-->
+
+<div class="span3">
+    <a href="/product/q/id/html/?id=<%=product_purchase.product_id%>">
+        <image src="/<%=product.images[0].imagesrc%>"></image>
+    </a>
+    <p>
+    <%
+    var purchase_summ = 'You purchase ';
+    var purchase_info;
+    for ( var i = 0; i < product_purchase.purchase_list.length; i++ ){
+        purchase_info = product_purchase.purchase_list[i];
+        purchase_summ =  purchase_summ + purchase_info.quantity + ' ' + purchase_info.attribute_value;
+        if ( i < product_purchase.purchase_list.length - 1 ){
+            purhcase_summ = purchase_summ + ',';
+        }
+    }%>
+    <%=purchase_summ%>
+    </p>
+    <div class="btn-group">
+        <button class="btn btn-link">Remove</button>
+        <button class="btn btn-link">Change Purchase</button>
+    </div>
+</div>

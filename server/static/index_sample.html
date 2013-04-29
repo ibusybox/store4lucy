@@ -52,8 +52,9 @@
               <li><a href="#contact">Contact</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">New Prdouct</a></li>
+                  <ul id="actionMenu" class="dropdown-menu">
+                    <!--insert dynamic by jQuery later-->
+                    <!--li><button class="btn btn-link">New Product</button></li-->
                   </ul>
               </li>
             </ul>
@@ -130,29 +131,13 @@
     <script src="/script/product.js"></script>
     <script src="/script/pi.js"></script>
     <script src="/script/order.js"></script>
+    <script src="/script/client_router.js"></script>
 
     <script>
 
       $(window).load(function(){
         var pathname = window.location.pathname;
-        if ( pathname == '/product' || pathname == '/product/' ){
-          handleGetProductHoemPage();
-        }else if ( pathname == URL_QUERY_PRODUCT_LIST_HTML || pathname == URL_QUERY_PRODUCT_LIST_HTML + '/' ){
-          handleGetProductListHTML();
-        }else if (pathname == URL_QUERY_PRODUCT_HTML || pathname == URL_QUERY_PRODUCT_HTML + '/'){
-          handleGetProductByIDHTML();
-        }else if ( pathname == '/pi' || pathname == '/pi/'){
-          handleGetPIHomePage();
-        }else if ( pathname == URL_QUERY_PI_BY_COUNT_INDEX_HTML || pathname == URL_QUERY_PI_BY_COUNT_INDEX_HTML + '/'){
-          handleGetPIByCountIndexHTML();
-        }else if ( pathname == URL_QUERY_PI_DETAIL_BY_NO_WITH_PRODUCTCONTENT_HTML || pathname == URL_QUERY_PI_DETAIL_BY_NO_WITH_PRODUCTCONTENT_HTML + '/' ){
-          handleGetPIDetailByPINOHTML();
-        }else if (pathname == '/order' || pathname == '/order/'){
-          handleGetOrderHomePage();
-        }else if ( pathname == URL_QUERY_ORDER_BY_COUNT_INDEX_HTML || pathname == URL_QUERY_ORDER_BY_COUNT_INDEX_HTML + '/'){
-          handleGetOrderByCountIndexHTML();
-        }
-
+        startClientRoute(pathname);
       });
     </script>
   </body>

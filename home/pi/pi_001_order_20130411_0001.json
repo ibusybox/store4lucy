@@ -3,26 +3,29 @@
     "order_belongs_to" : "order_20130411_0001",
     "product_id_list" : [1,2,3,4,5],
     "product_purchase_list" : [
-        {"product_id" : 1, "color" : "Red", "amount" : 500, "price" : "5 RMB"},
-        {"product_id" : 1, "color" : "Blue", "amount" : 300, "price" : "5 RMB"},
-        {"product_id" : 2, "color" : "White", "amount" : 200, "price" : "7 RMB"},
-        {"product_id" : 3, "color" : "White", "amount" : 200, "price" : "9 RMB"},
-        {"product_id" : 4, "color" : "White", "amount" : 200, "price" : "10.5 RMB"},
-        {"product_id" : 5, "color" : "White", "amount" : 200, "price" : "3.5 RMB"}
+        {"product_id" : 1, "purchase_list" : [ 
+                {"attribute_name" : "color", "attribute_value" : "Red", "quantity" : 500, "price_currency": "RMB", "price" : 5},
+                {"attribute_name" : "color", "attribute_value" : "Blue", "quantity" : 300, "price_currency": "RMB", "price" : 5}
+            ]
+        },
+        {"product_id" : 2, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200, "price_currency": "RMB", "price" : 7} ] },
+        {"product_id" : 3, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200, "price_currency": "RMB", "price" : 5} ] },
+        {"product_id" : 4, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200, "price_currency": "RMB", "price" : 5} ] },
+        {"product_id" : 5, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200, "price_currency": "RMB", "price" : 3.5} ] }
     ],
     "state" : 0,
     "packing" : {
         "box_amount" : 2,
         "boxes" : [
             {"box_number" : 1, "box_content" : [
-                {"product_id" : 1, "color" : "Red", "amount" : 250},
-                {"product_id" : 2, "color" : "Red", "amount" : 250}
+                {"product_id" : 1, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "Red", "quantity" : 250} ] },
+                {"product_id" : 2, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "Red", "quantity" : 250} ] }
             ] },
             {"box_number" : 2, "box_content" : [
-                {"product_id" : 2, "color" : "Blue", "amount" : 300},
-                {"product_id" : 3, "color" : "White", "amount" : 200},
-                {"product_id" : 4, "color" : "White", "amount" : 200},
-                {"product_id" : 5, "color" : "White", "amount" : 200}
+                {"product_id" : 2, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "Blue", "quantity" : 300} ] },
+                {"product_id" : 3, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200} ] },
+                {"product_id" : 4, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200} ] },
+                {"product_id" : 5, "purchase_list" : [ {"attribute_name" : "color", "attribute_value" : "White", "quantity" : 200} ] }
             ] }
         ]
     },

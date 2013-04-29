@@ -136,3 +136,16 @@ get
 
 ##/pi/q/no/html interface description
 
+##/pi/export/quatation interface description
+###description
+Export PI as quatation
+###request type
+Get
+###permission
+Admin
+###input
+/?pi_no=xxx
+###output
+PDF file than contans product in PI as quatation format.
+
+

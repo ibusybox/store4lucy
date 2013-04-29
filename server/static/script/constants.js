@@ -12,6 +12,7 @@ var URL_QUERY_PI_BY_COUNT_INDEX_JSON = '/pi/q/count/json';
 
 var URL_QUERY_PI_DETAIL_BY_NO_WITH_PRODUCTCONTENT_HTML = '/pi/q/no/html';
 var URL_QUERY_PI_DETAIL_BY_NO_WITH_PRODUCTCONTENT_JSON = '/pi/q/no/json';
+var URL_EXPORT_PI_AS_QUATATION = '/pi/export/quatation';
 
 var URL_QUERY_ORDER_BY_COUNT_INDEX_HTML = '/order/q/count/html';
 var URL_QUERY_ORDER_BY_COUNT_INDEX_JSON = '/order/q/count/json';
