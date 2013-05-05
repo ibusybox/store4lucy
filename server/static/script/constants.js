@@ -5,6 +5,7 @@ var URL_QUERY_PRODUCT_LIST_JSON = '/product/q/id_list/json';
 //query product by id url
 var URL_QUERY_PRODUCT_HTML = '/product/q/id/html'
 var URL_QUERY_PRODUCT_JSON = '/product/q/id/json'
+var URL_EXPORT_PRODUCT_QUATATION_HTML = '/product/export/quatation';
 
 //query PI by count index
 var URL_QUERY_PI_BY_COUNT_INDEX_HTML = '/pi/q/count/html';

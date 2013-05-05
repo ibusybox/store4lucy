@@ -123,6 +123,15 @@ function getRequestParam(request){
     return querystring.parse( url.parse(request.url).query );
 }
 
+/*
+* Get a random string
+* @return{string}
+* @api public
+**/
+function getRandomString(){
+    return Math.random() * 1000 + 1;
+}
+
 
 exports.stringEndWith = stringEndWith;
 exports.trim = trim;
@@ -133,4 +142,5 @@ exports.deleteIf = deleteIf;
 exports.forEachProduct = forEachProduct;
 exports.arrayContainsPrototype = arrayContainsPrototype;
 exports.getRequestParam = getRequestParam;
+exports.getRandomString = getRandomString;
 

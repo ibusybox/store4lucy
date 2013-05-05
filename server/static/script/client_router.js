@@ -23,7 +23,10 @@ function startClientRoute(pathname){
           handleGetOrderHomePage();
         }else if ( pathname == URL_QUERY_ORDER_BY_COUNT_INDEX_HTML || pathname == URL_QUERY_ORDER_BY_COUNT_INDEX_HTML + '/'){
           handleGetOrderByCountIndexHTML();
+        }else if ( patnname == URL_EXPORT_PRODUCT_QUATATION || pathname == URL_EXPORT_PRODUCT_QUATATION + '/'){
+          handleExportProductAsQuatation();
         }
+
 }
 
 /**

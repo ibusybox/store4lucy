@@ -51,6 +51,7 @@ function getIndexSmapleHTML(request, response){
     });    
 }
 
+
 //root is redirect to /product
 app.get('/', function(request, response){
     response.redirect('/product');
@@ -75,6 +76,8 @@ app.get('/product/q/id/json', product.getProductByID);
 app.get('/product/q/categories', product.getAllCategoriesOfProduct);
 
 app.get('/product/q/compatible_brand', product.getCompatibleBrand);
+
+app.get('/product/export/quatation/html', product.getProductExportPage);
 
 //app.get('/product/q/?type=model');
 

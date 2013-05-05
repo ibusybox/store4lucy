@@ -1,0 +1,50 @@
+<div id="pi_purchase_summary" class="span12">
+    <h3>Quatation From Mandala Technology Co., Ltd</h3>
+
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <tr>
+                <td>Product No.</td>
+                <td>Description</td>
+                <td>Picture</td>
+                <%
+                    var attribute;
+                    for ( var i = 0; i < product_list[0].feature.attributes.length; i++ ){
+                        attribute = product_list[0].feature.attributes[i];
+                %>
+                        <td><%=attribute.attribute_name%></td>
+                <%    }
+                %>
+                <td>Price</td>
+                <td>Packing</td>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+            var product;
+            for ( var i = 0; i < product_list.length; i++ ){
+                product = product_list[i];
+            %>
+            <tr>
+                <td><a href="/product/q/id/html/?id=<%=product.feature.number%>"><%=product.feature.number%></a></td>
+                <td><%=product.feature.description%></td>
+                <td><image src="/<%=product.images[0].imagesrc%>" width="200px"></td>
+                <%
+                    var attribute;
+                    for ( var j = 0; j < product.feature.attributes.length; j++ ){
+                        attribute = product.feature.attributes[j];
+                %>
+                    <td><%=attribute.attribute_value%></td>
+                <%}%>
+                <td><%=product.feature.price.price + ' ' +  product.feature.price.currency%></td>
+                <td>
+                    <%if ( product.packing.packing_images && product.packing.packing_images.length > 0 ){%>
+                        <image src="/<%=product.packing.packing_images[0]%>" width="200px"><br/>
+                    <%}%>
+                    <%=product.packing.packing_desc%>
+                </td>
+            </tr>
+            <%}%><!--end product for loop-->
+        </body>
+    </table>
+</div>

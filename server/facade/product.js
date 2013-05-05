@@ -3,38 +3,33 @@
 * In this product facade implementation, each operation should check the permission and do different operation according to the permession.
 **/
 
+var fs = require('fs');
 
 var utils = require('../utils');
 var productFacade = require('../productmgr/productfacade');
 var userMgr = require('../auth/usermgr');
 
+var PRODUCT_EXPORT_PAGE_PATH = 'server/static/script/product_export.html';
+
 /**
 * The product main page "/product" call this function
 **/
 function getProductByIDList(request, response){
-
-    var count = 0;
     var param = utils.getRequestParam(request);
     var idList = param['id_list'].split(',');
-    var backProductList = [];
-    response.writeHead(200, {'Content-Type' : 'text/json'});
-    for( var i = 0; i < idList.length; i++ ){
-        productFacade.operationSet['queryProductSummary'](idList.length, idList[i], function(err, product){
-            if ( err ){
-                console.log('query product by list error = ' + err);
-            }else{
-                backProductList.push(product);
-            }
-            //last one then send back to client
-            if ( count === ( idList.length - 1 ) ){
-                console.log(JSON.stringify( backProductList ));
-                response.write( JSON.stringify( backProductList ) );
-                response.end();
-            }
-            count ++;
 
-        });
-    }
+    response.writeHead(200, {'Content-Type' : 'text/json'});
+    privateGetProductList(idList, function( err, productList ){
+        if( err ){
+            response.write( err );
+        }else{
+            console.log(JSON.stringify( productList ));
+            response.write( JSON.stringify( productList ) );
+        }
+        response.end();
+    } );
+
+    
 }
 
 /**
@@ -105,7 +100,78 @@ function getCompatibleBrand(request, response){
     } );
 }
 
+/**
+* Export product list as quatation in PDF format
+* @param {request} querystring is ?id_list=1,2,3 ...
+* @param {response} response type is 'application/pdf', a PDF file
+* @api public
+*/
+function exportProductsAsQuatation(request, response){
+    var idList = utils.getRequestParam(request)['id_list'].split(',');
+
+}
+
+/**
+* Return the product export page
+*/
+function getProductExportPage(request, response){
+    response.writeHead(200, {'Content-Type' : 'text/html'});
+    var idList = utils.getRequestParam(request)['id_list'].split(',');
+
+    fs.readFile(PRODUCT_EXPORT_PAGE_PATH, 'utf8', function( err, data ){
+        if ( err ){
+            response.write(err);
+        }else{
+            
+            privateGetProductList(idList, function(productErr, productList){
+                if(productErr){
+                    response.write(productErr);
+                }else{
+                    var ejs = require('ejs');
+                    var html = ejs.render(data, {product_list: productList});
+                    console.log(html);
+                    response.write(html);
+                }
+                response.end();
+            });
+        }
+        
+    } ); 
+}
+
+
+/**
+* Get product object as a list.
+* @param {array} product id list
+* @param {function} callback when get result
+* @api private
+*/
+function privateGetProductList(idList, callback){
+    var count = 0;
+    var backProductList = [];
+    
+    for( var i = 0; i < idList.length; i++ ){
+        productFacade.operationSet['queryProductSummary'](idList.length, idList[i], function(err, product){
+            if ( err ){
+                console.log('query product by list error = ' + err);
+            }else{
+                backProductList.push(product);
+            }
+            //last one then send back to client
+            if ( count === ( idList.length - 1 ) ){
+                callback(null, backProductList);
+            }
+            count ++;
+
+        });
+    }
+
+}
+
+
 exports.getProductByIDList = getProductByIDList;
 exports.getProductByID = getProductByID;
 exports.getAllCategoriesOfProduct = getAllCategoriesOfProduct;
 exports.getCompatibleBrand = getCompatibleBrand;
+exports.getProductExportPage = getProductExportPage;
+exports.exportProductsAsQuatation = exportProductsAsQuatation;
