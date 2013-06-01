@@ -162,3 +162,16 @@ function convertJSON2ProductSummary(product){
     html = html + "<p>" + product.feature.description + "</p>";
     return html;
 }
+
+/**
+* New product page
+* @api public
+*/
+function handleNewProductHTML(){
+    //get the form html, then append some data to the form
+    $.get( '/script/product/new_product_form.ejs', function(form){
+        $('#contentContainer').append( form );
+        //fill the models
+
+    } );
+}

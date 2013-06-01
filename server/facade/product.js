@@ -101,6 +101,21 @@ function getCompatibleBrand(request, response){
 }
 
 /**
+* Handle for create new product
+* @api public
+*/
+function newProduct(request, response){
+    
+}
+
+function uploadProductImage(request, response){
+    console.log(request.files.files[0].name);
+    response.writeHead(200, {'Content-Type' : 'text/html'});
+    response.write('Succeed');
+    response.end();
+}
+
+/**
 * Export product list as quatation in PDF format
 * @param {request} querystring is ?id_list=1,2,3 ...
 * @param {response} response type is 'application/pdf', a PDF file
@@ -168,6 +183,16 @@ function privateGetProductList(idList, callback){
 
 }
 
+function privateGetPageByPath( path, callback ){
+    fs.readFile( path, 'utf8', function( err, data ){
+        if ( err ){
+            callback( err, null );
+        }else{
+            callback( null, data );
+        }
+    });
+}
+
 
 exports.getProductByIDList = getProductByIDList;
 exports.getProductByID = getProductByID;
@@ -175,3 +200,5 @@ exports.getAllCategoriesOfProduct = getAllCategoriesOfProduct;
 exports.getCompatibleBrand = getCompatibleBrand;
 exports.getProductExportPage = getProductExportPage;
 exports.exportProductsAsQuatation = exportProductsAsQuatation;
+exports.newProduct = newProduct;
+exports.uploadProductImage = uploadProductImage;

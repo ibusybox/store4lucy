@@ -4,9 +4,9 @@
     "number" : 4,
     "name" : "Diamond Case for Blackberry Z10",
     "model" : "Blackberry Z10",
-    "color" : "red,white,black",
+    "attributes" : [{"attribute_name" : "color", "attribute_value" : "red,white,black"}],
     "description" : "Diamond case for Blackberry Z10, the diamond is the small one.",
-    "price" : "8 RMB",
+    "price" : {"currency" : "RMB", "price" : 8},
     "material" : "PC",
     "compatible_brand" : "Blackberry"
     },
@@ -21,6 +21,8 @@
        "price" : "6 RMB"},
        {"supplier name" :  "Niumowang",
        "price" : "7 RMB"}
-    ]
+    ],
+    
+    "packing" : {"packing_desc" : "PP Bag", "packing_images" : []}
     
 }

@@ -32,6 +32,23 @@ app.use(express.session(
 );
 ///app.use(express.cookieSession());
 
+//set up file upload https://github.com/aguidrevitch/jquery-file-upload-middleware
+var upload = require('jquery-file-upload-middleware');
+upload.configure({
+        uploadDir: __dirname + '/static/uploads',
+        uploadUrl: '/uploads',
+        imageVersions: {
+            thumbnail: {
+                width: 80,
+                height: 80
+            }
+        }
+    });
+app.use('/upload', upload.fileHandler());
+app.use('/product/upload', upload.fileHandler());
+
+//use body parser
+app.use( express.bodyParser( /*{uploadDir: __dirname + '/uploads'}*/ ) );
 
 var product = require('./facade/product');
 var auth = require('./auth/auth');
@@ -78,6 +95,11 @@ app.get('/product/q/categories', product.getAllCategoriesOfProduct);
 app.get('/product/q/compatible_brand', product.getCompatibleBrand);
 
 app.get('/product/export/quatation/html', product.getProductExportPage);
+
+app.get('/product/new/html', getIndexSmapleHTML);
+app.post('/product/new/json', product.newProduct);
+
+//app.post('/product/upload', product.uploadProductImage);
 
 //app.get('/product/q/?type=model');
 

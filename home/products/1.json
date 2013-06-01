@@ -4,9 +4,9 @@
     "number" : 1,
     "name" : "Pouch for Blackberry Z10",
     "model" : "Blackberry Z10",
-    "color" : "red,white,black,yellow,purple,pink,sky blue",
+    "attributes" : [{"attribute_name" : "color", "attribute_value" : "red,white,black,yellow,purple,pink,sky blue"}],
     "description" : "Left-Right pouch for Blackberry Z10",
-    "price" : "8 RMB",
+    "price" : {"currency" : "RMB", "price" : 8},
     "material" : "PC",
     "compatible_brand" : "Blackberry"
     },
@@ -25,6 +25,7 @@
        "price" : "6 RMB"},
        {"suppliername" :  "牛魔王",
        "price" : "7 RMB"}
-    ]
+    ],
     
+    "packing" : {"packing_desc" : "PP Bag", "packing_images" : ["ppbag.jpg"]}
 }
